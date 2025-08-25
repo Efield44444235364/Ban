@@ -207,5 +207,4 @@ end)
 --// =============================
 --// แจ้งเตือนตอนโหลดสคริปต์เสร็จ
 --// =============================
-createNotification(" [ ✅ ] Auto Execute", "Script Loaded Successfully")
 warn("[ ⚙️ ] Script loaded - FPS monitor active")
