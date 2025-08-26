@@ -10,3 +10,5 @@ for i, v in pairs(getgc(true)) do
         end
     end
 end
+
+print(" [ ✅ ] Successfully fixed AndroidAnticheatKick")
