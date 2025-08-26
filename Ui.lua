@@ -2,7 +2,7 @@
 wait(2)
 
 -- เวอร์ชันปัจจุบัน (เปลี่ยนตรงนี้ตอนมีอัพเดทใหม่)
-local version = "1.0.0"
+local version = "1.2"
 local fileName = "Patch.json"
 
 local HttpService = game:GetService("HttpService")
@@ -127,9 +127,14 @@ local function createUI()
     local englishText = [[
 📢 Update Log ]].."\n\nVersion: "..version..[[
 
-• New Anti–Ban protection 
-• Optimized performance for smoother gameplay on mobile
-• Minor bug fixes for better stability
+🛠 Fixed AndroidAntiCheatKick
+🛡 Improved Security Kick protection (Blox Fruit)
+⚡ Fixed instant kicks in Basketball League, Flex Your FPS, Blox Fruit
+🎣 Fixed fishing crash (Blox Fruit)
+🚀 FPS performance improved
+⛔ Added +2 Blox Fruit Admins to blacklist
+    
+    Kawenew executer support this update only!!!
     ]]
     ContentLabel.Text = englishText
 
