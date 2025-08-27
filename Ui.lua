@@ -2,7 +2,7 @@
 wait(2)
 
 -- เวอร์ชันปัจจุบัน (เปลี่ยนตรงนี้ตอนมีอัพเดทใหม่)
-local version = "1.2"
+local version = "1.3"
 local fileName = "Patch.json"
 
 local HttpService = game:GetService("HttpService")
@@ -59,7 +59,7 @@ local function createUI()
     local TitleBar = Instance.new("TextLabel")
     TitleBar.Size = UDim2.new(1, -40, 0, 40)
     TitleBar.BackgroundTransparency = 1
-    TitleBar.Text = "📢 Announcement"
+    TitleBar.Text = "📢 Announcement | nonsense"
     TitleBar.Font = Enum.Font.GothamBold
     TitleBar.TextSize = 22
     TitleBar.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -127,12 +127,9 @@ local function createUI()
     local englishText = [[
 📢 Update Log ]].."\n\nVersion: "..version..[[
 
-🛠 Fixed AndroidAntiCheatKick
-🛡 Improved Security Kick protection (Blox Fruit)
-⚡ Fixed instant kicks in Basketball League, Flex Your FPS, Blox Fruit
-🎣 Fixed fishing crash (Blox Fruit)
-🚀 FPS performance improved
-⛔ Added +2 Blox Fruit Admins to blacklist
+🚀 Improve FPS in BloxFruit, Cut Glass, Lag Test 2025, Hunty Zombie — Added LOD script for these maps
+🛡️ Improve Anti-Kick for new Roblox detection (Executer Bypass Update)
+🔧 Fix issues/bug (🤔 maybe not a bug… like when you lag during PvP)
     
     Kawenew executer support this update only!!!
     ]]
