@@ -2,7 +2,7 @@
 wait(2)
 
 -- เวอร์ชันปัจจุบัน (เปลี่ยนตรงนี้ตอนมีอัพเดทใหม่)
-local version = "1.3"
+local version = "1.4"
 local fileName = "Patch.json"
 
 local HttpService = game:GetService("HttpService")
@@ -127,11 +127,10 @@ local function createUI()
     local englishText = [[
 📢 Update Log ]].."\n\nVersion: "..version..[[
 
-🚀 Improve FPS in BloxFruit, Cut Glass, Lag Test 2025, Hunty Zombie — Added LOD script for these maps
-🛡️ Improve Anti-Kick for new Roblox detection (Executer Bypass Update)
-🔧 Fix issues/bug (🤔 maybe not a bug… like when you lag during PvP)
-    
-    Kawenew executer support this update only!!!
+🔄 Add Auto Reconnect for all maps!
+⚡ Fix other script crashes when execute from LOD/
+🐶 Lighting Event monsters not spawning cuz Anti-Cheat (Anti-Cheat fixed)
+      Fixed issue bug (FPS Drop when Auto Farming)
     ]]
     ContentLabel.Text = englishText
 
