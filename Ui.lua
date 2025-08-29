@@ -59,7 +59,7 @@ local function createUI()
     local TitleBar = Instance.new("TextLabel")
     TitleBar.Size = UDim2.new(1, -40, 0, 40)
     TitleBar.BackgroundTransparency = 1
-    TitleBar.Text = "📢 Announcement | nonsense"
+    TitleBar.Text = "📢 Announcement"
     TitleBar.Font = Enum.Font.GothamBold
     TitleBar.TextSize = 22
     TitleBar.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -128,9 +128,9 @@ local function createUI()
 📢 Update Log ]].."\n\nVersion: "..version..[[
 
 🔄 Add Auto Reconnect for all maps!
-⚡ Fix other script crashes when execute from LOD/
+⚡ Fix other script crashes when execute from LOD/Optimization 
 🐶 Lighting Event monsters not spawning cuz Anti-Cheat (Anti-Cheat fixed)
-      Fixed issue bug (FPS Drop when Auto Farming)
+     Fixed issue bug (FPS Drop when Auto Farming)
     ]]
     ContentLabel.Text = englishText
 
