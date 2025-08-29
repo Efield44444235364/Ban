@@ -59,5 +59,3 @@ game:GetService("CoreGui").RobloxPromptGui.promptOverlay.ChildAdded:Connect(func
         end
     end
 end)
-
-print("[✅] Auto Reconnect load.!!")
