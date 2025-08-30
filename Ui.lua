@@ -2,7 +2,7 @@
 wait(2)
 
 -- เวอร์ชันปัจจุบัน (เปลี่ยนตรงนี้ตอนมีอัพเดทใหม่)
-local version = "1.4"
+local version = "1.5"
 local fileName = "Patch.json"
 
 local HttpService = game:GetService("HttpService")
@@ -126,11 +126,14 @@ local function createUI()
     -- Fixed English text + เพิ่มเลขเวอร์ชัน
     local englishText = [[
 📢 Update Log ]].."\n\nVersion: "..version..[[
-
-🔄 Add Auto Reconnect for all maps!
-⚡ Fix other script crashes when execute from LOD/Optimization 
-🐶 Lighting Event monsters not spawning cuz Anti-Cheat (Anti-Cheat fixed)
-     Fixed issue bug (FPS Drop when Auto Farming)
+    
+🛡️ Anti-Cheat Blox Fruit Nothing new but still protecte
+🚀 Faster loading script (Kawnew Anti-Ban Only)
+🕊️ Remove Dynamic FPS (Cuz Low rending Risky 🦅 sry i cant find 🕊️)
+🔧 Fixed White part and Zombie invisible in Hunty Zombie
+⚙️ Fix Inventory Bug Always show when Fast Attack (Blox fruit)
+    
+      👀 Beta test closer!!! new features is coming!!
     ]]
     ContentLabel.Text = englishText
 
