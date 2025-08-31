@@ -2,7 +2,7 @@
 wait(2)
 
 -- เวอร์ชันปัจจุบัน (เปลี่ยนตรงนี้ตอนมีอัพเดทใหม่)
-local version = "1.6"
+local version = "1.61"
 local fileName = "Patch.json"
 
 local HttpService = game:GetService("HttpService")
@@ -127,8 +127,8 @@ local function createUI()
     local englishText = [[
 📢 Update Log ]].."\n\nVersion: "..version..[[
     
-🚀 improve FPS when Attack boss (Delete some Effect and skill)
-🔧 Fix Red big wings in Oni Temple 
+🚀 Optimize and Fastest Load Oni Realms (onyl Oni Realms not Oni Intiate)
+💖 Reduced Part unnecessary in Oni intiate!!
     
       👀 Beta test closer!!! new features is coming!!
     ]]
