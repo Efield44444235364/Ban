@@ -2,7 +2,7 @@
 wait(2)
 
 -- เวอร์ชันปัจจุบัน (เปลี่ยนตรงนี้ตอนมีอัพเดทใหม่)
-local version = "1.5"
+local version = "1.6"
 local fileName = "Patch.json"
 
 local HttpService = game:GetService("HttpService")
@@ -127,11 +127,8 @@ local function createUI()
     local englishText = [[
 📢 Update Log ]].."\n\nVersion: "..version..[[
     
-🛡️ Anti-Cheat Blox Fruit Nothing new but still protecte
-🚀 Faster loading script (Kawnew Anti-Ban Only)
-🕊️ Remove Dynamic FPS (Cuz Low rending Risky 🦅 sry i cant find 🕊️)
-🔧 Fixed White part and Zombie invisible in Hunty Zombie
-⚙️ Fix Inventory Bug Always show when Fast Attack (Blox fruit)
+🚀 improve FPS when Attack boss (Delete some Effect and skill)
+🔧 Fix Red big wings in Oni Temple 
     
       👀 Beta test closer!!! new features is coming!!
     ]]
