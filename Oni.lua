@@ -1,12 +1,20 @@
 local RS = game:GetService("ReplicatedStorage")
 local WS = game:GetService("Workspace")
 local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
 
 local player = Players.LocalPlayer
 local OniRealm = WS:WaitForChild("Map"):WaitForChild("Oni Realm")
 local OniInterior = WS:WaitForChild("Map"):WaitForChild("Oni Realm (Interior)")
 
--- Cube.002 โผล่ทันที
+-- จุด dojo target
+local dojoModel = OniRealm:FindFirstChild("dojo") and OniRealm.dojo:FindFirstChild("Model")
+local dojoPart = OniRealm:FindFirstChild("dojo")
+
+-- เก็บสถานะว่า optimization เริ่มหรือยัง
+local optimizationStarted = false
+
+-- จุด safePart
 local safePart
 local targetParent = OniRealm:GetChildren()[77]
 if targetParent and targetParent:FindFirstChild("Cube.002") then
@@ -27,6 +35,31 @@ local importantParts = {
 local importantSet = {}
 for _, v in ipairs(importantParts) do
     if v then importantSet[v] = true end
+end
+
+-- ฟังก์ชันคำนวณระยะห่างจาก dojo
+local function getDistanceFromDojo()
+    local char = player.Character
+    if not char or not char:FindFirstChild("HumanoidRootPart") then return math.huge end
+
+    local hrp = char.HumanoidRootPart.Position
+    local candidates = {}
+
+    if dojoModel and dojoModel:IsA("Model") and dojoModel.PrimaryPart then
+        table.insert(candidates, dojoModel.PrimaryPart.Position)
+    end
+    if dojoPart and dojoPart:IsA("BasePart") then
+        table.insert(candidates, dojoPart.Position)
+    end
+
+    local minDist = math.huge
+    for _, targetPos in ipairs(candidates) do
+        local dist = (hrp - targetPos).Magnitude
+        if dist < minDist then
+            minDist = dist
+        end
+    end
+    return minDist
 end
 
 -- ฟังก์ชัน optimize LOD สำหรับ Oni ธรรมดา
@@ -53,10 +86,7 @@ local function optimizeLOD(map)
     end
 end
 
--- ทำ LOD เบาให้ Oni ธรรมดา
-optimizeLOD(OniRealm)
-
--- ฟังก์ชัน preload แบบ multi-thread batch
+-- preload แบบ multi-thread batch
 local function fastLoad(map, extremelyFast)
     task.spawn(function()
         local descendants = map:GetDescendants()
@@ -100,6 +130,8 @@ local NetModule = RS:WaitForChild("Modules"):WaitForChild("Net")
 local teleportRemote = NetModule:WaitForChild("RF/OniTempleTransportation")
 
 local function handleRemote(args)
+    if not optimizationStarted then return end -- ✅ ถ้ายังไม่เริ่ม optimization → ข้ามไป
+
     if args[1] == "InitiateTeleportToInterior" then
         setOniInitiateLOD(true)       -- เปิดแสง/สะท้อน
         fastLoad(OniInterior, true)   -- preload full-speed Oni Initiate
@@ -123,3 +155,18 @@ elseif teleportRemote:IsA("RemoteEvent") then
         return originalFire(self, ...)
     end
 end
+
+-- 🔄 ตัวเช็คเงื่อนไข (ทำงานทุก ๆ 1 วิ)
+task.spawn(function()
+    while true do
+        task.wait(1)
+        if not optimizationStarted then
+            local dist = getDistanceFromDojo()
+            if dist > 200 then
+                optimizationStarted = true
+                print("[OPTIMIZATION] Player ห่างจาก dojo เกิน 200m → เริ่มทำงาน")
+                optimizeLOD(OniRealm)
+            end
+        end
+    end
+end)
