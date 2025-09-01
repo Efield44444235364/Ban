@@ -2,7 +2,7 @@
 
 
 -- เวอร์ชันปัจจุบัน (เปลี่ยนตรงนี้ตอนมีอัพเดทใหม่)
-local version = "1.61"
+local version = "1.7 rewrite"
 local fileName = "Patch.json"
 
 local HttpService = game:GetService("HttpService")
@@ -59,7 +59,7 @@ local function createUI()
     local TitleBar = Instance.new("TextLabel")
     TitleBar.Size = UDim2.new(1, -40, 0, 40)
     TitleBar.BackgroundTransparency = 1
-    TitleBar.Text = "📢 Announcement"
+    TitleBar.Text = "📢 Announcement | Rewrite All Scripts"
     TitleBar.Font = Enum.Font.GothamBold
     TitleBar.TextSize = 22
     TitleBar.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -127,9 +127,12 @@ local function createUI()
     local englishText = [[
 📢 Update Log ]].."\n\nVersion: "..version..[[
     
-🚀 Optimize and Fastest Load Oni Realms (onyl Oni Realms not Oni Intiate)
-💖 Reduced Part unnecessary in Oni intiate!!
-    
+🛠️ Fix Oni Temple White part and Fix Fall from Oni Temple cuz LOD
+🚀 Improve Lag in Hunty Zombie
+🔧 Fix Map Not loading in Hunty Zombie
+✏️ Rewrite and New loader
+
+      ✅ Zero Error Coming soon
       👀 Beta test closer!!! new features is coming!!
     ]]
     ContentLabel.Text = englishText
