@@ -128,6 +128,7 @@ local function createUI()
 📢 Update Log ]].."\n\nVersion: "..version..[[
     
 🛠️ Fix Oni Temple White part and Fix Fall from Oni Temple cuz LOD
+    
 🚀 Improve Lag in Hunty Zombie
 🔧 Fix Map Not loading in Hunty Zombie
 ✏️ Rewrite and New loader
