@@ -11,12 +11,13 @@ for i, v in pairs(getgc(true)) do
         end
     end
 end
-print("[✅] Anti-Cheat Bypass")
+print("[✅] Anti-Cheat Bypass!!")
+
 -- Services
 local Workspace = game:GetService("Workspace")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
--- Target dojo part
+-- ===== ลบ Part ใน dojo =====
 local dojo = Workspace.Map["Oni Realm"].dojo
 local targetIndex = 41
 
@@ -24,7 +25,7 @@ local function deletePart()
     local part = dojo:GetChildren()[targetIndex]
     if part then
         part:Destroy()
-        print("[✅] Part deleted")
+        print("[✅] Part in Oni Temple fix")
     end
 end
 
@@ -45,4 +46,16 @@ if OniRemote then
     deletePart()
 end
 
-print("[✅] Temple of time Bypass")
+-- ===== ย้าย Temple of Time =====
+local MapStash = ReplicatedStorage:FindFirstChild("MapStash")
+if MapStash then
+    local temple = MapStash:FindFirstChild("Temple of Time")
+    if temple then
+        temple.Parent = Workspace
+        print("[✅] Temple of time Bypass")
+    else
+        warn("[❌] Temple of time has been Byapss!!")
+    end
+else
+    warn("[❌] Temple of time has been Byapss!!")
+end
