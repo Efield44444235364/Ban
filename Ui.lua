@@ -1,5 +1,5 @@
 --// Executor Script : Announcement + Patch.json system
-wait(2)
+
 
 -- เวอร์ชันปัจจุบัน (เปลี่ยนตรงนี้ตอนมีอัพเดทใหม่)
 local version = "1.61"
