@@ -2,7 +2,7 @@
 
 
 -- เวอร์ชันปัจจุบัน (เปลี่ยนตรงนี้ตอนมีอัพเดทใหม่)
-local version = "1.7 rewrite"
+local version = "1.7.1 rewrite"
 local fileName = "Patch.json"
 
 local HttpService = game:GetService("HttpService")
@@ -126,12 +126,11 @@ local function createUI()
     -- Fixed English text + เพิ่มเลขเวอร์ชัน
     local englishText = [[
 📢 Update Log ]].."\n\nVersion: "..version..[[
-    
-🛠️ Fix Oni Temple White part and Fix Fall from Oni Temple cuz LOD
-    
-🚀 Improve Lag in Hunty Zombie
-🔧 Fix Map Not loading in Hunty Zombie
-✏️ Rewrite and New loader
+
+🚪 Add bypass Temple of time 
+🛡️ Blox Fruit Anti-Reset now active (beta)
+🚀 All Script smooth now 
+🔧 Fix Lag when Execute scriptu
 
       ✅ Zero Error Coming soon
       👀 Beta test closer!!! new features is coming!!
