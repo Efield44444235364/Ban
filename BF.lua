@@ -1,4 +1,16 @@
--- AntiCheat bypass
+-- เช็ค PlaceId ก่อน
+if game.PlaceId == 2753915549 then
+    World1 = true
+elseif game.PlaceId == 4442272183 then
+    World2 = true
+elseif game.PlaceId == 7449423635 then
+    World3 = true
+else
+    print("[❌] This script only works in Blox Fruits PlaceIds!")
+    return
+end
+
+-- ===== AntiCheat bypass =====
 for i, v in pairs(getgc(true)) do
     if typeof(v) == "function" and islclosure(v) then
         local upvs = debug.getupvalues(v)
@@ -54,8 +66,8 @@ if MapStash then
         temple.Parent = Workspace
         print("[✅] Temple of time Bypass")
     else
-        warn("[❌] Temple of time has been Byapss!!")
+        warn("[❌] Temple of time has been Bypassed!!")
     end
 else
-    warn("[❌] Temple of time has been Byapss!!")
+    warn("[❌] Temple of time has been Bypassed!!")
 end
