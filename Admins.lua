@@ -29,7 +29,7 @@ local function checkPlayers()
     for _, p in ipairs(Players:GetPlayers()) do
         if blacklist[p.Name] then
             Notification("⚠ Admin " .. p.Name .. " joined! Shutting down...")
-            task.wait(1.5)
+            task.wait(1)
             game:Shutdown()
             break
         end
