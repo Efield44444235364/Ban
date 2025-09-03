@@ -1,4 +1,5 @@
---// Loading String Example
+
+--[[
 local function loadingString(name, url)
     print("[🔄] Loading " .. name .. " ...")
     local success, result = pcall(function()
@@ -19,5 +20,6 @@ loadingString("Oni optimize", "https://raw.githubusercontent.com/Efield444442353
 loadingString("Ui", "https://raw.githubusercontent.com/Efield44444235364/Ban/refs/heads/main/Ui.lua")
 loadingString("Auto Reconnect", "https://raw.githubusercontent.com/Efield44444235364/Ban/refs/heads/main/Auto%20reconnect.lua")
 
+--]]
 
 
