@@ -2,7 +2,7 @@
 
 
 -- เวอร์ชันปัจจุบัน (เปลี่ยนตรงนี้ตอนมีอัพเดทใหม่)
-local version = "1.7.1 rewrite"
+local version = "1.7.2 rewrite"
 local fileName = "Patch.json"
 
 local HttpService = game:GetService("HttpService")
@@ -127,10 +127,8 @@ local function createUI()
     local englishText = [[
 📢 Update Log ]].."\n\nVersion: "..version..[[
 
-🚪 Add bypass Temple of time 
-🛡️ Blox Fruit Anti-Reset now active (beta)
-🚀 All Script smooth now 
-🔧 Fix Lag when Execute scriptu
+✏️ Rewrite Blox Fruit Admins Kick
+   And Fix the slow function
 
       ✅ Zero Error Coming soon
       👀 Beta test closer!!! new features is coming!!
