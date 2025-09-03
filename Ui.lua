@@ -2,7 +2,7 @@
 
 
 -- เวอร์ชันปัจจุบัน (เปลี่ยนตรงนี้ตอนมีอัพเดทใหม่)
-local version = "1.7.2 rewrite"
+local version = "1.8"
 local fileName = "Patch.json"
 
 local HttpService = game:GetService("HttpService")
@@ -59,7 +59,7 @@ local function createUI()
     local TitleBar = Instance.new("TextLabel")
     TitleBar.Size = UDim2.new(1, -40, 0, 40)
     TitleBar.BackgroundTransparency = 1
-    TitleBar.Text = "📢 Announcement | Rewrite All Scripts"
+    TitleBar.Text = "📢 Announcement | Beta Coming"
     TitleBar.Font = Enum.Font.GothamBold
     TitleBar.TextSize = 22
     TitleBar.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -127,11 +127,10 @@ local function createUI()
     local englishText = [[
 📢 Update Log ]].."\n\nVersion: "..version..[[
 
-✏️ Rewrite Blox Fruit Admins Kick
-   And Fix the slow function
+✅ Zero Error now working (Except for detecting the remote of “Dojo”)
+🛡️ Roblox detection update nothing new 
 
-      ✅ Zero Error Coming soon
-      👀 Beta test closer!!! new features is coming!!
+   ✅✅✅✅✅✅✅✅ Beta test Next update ✅✅✅✅
     ]]
     ContentLabel.Text = englishText
 
