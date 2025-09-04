@@ -1,4 +1,5 @@
--- เช็ค PlaceId ก่อน
+-- ===== PlaceId Check =====
+local World1, World2, World3 = false, false, false
 if game.PlaceId == 2753915549 then
     World1 = true
 elseif game.PlaceId == 4442272183 then
@@ -9,65 +10,81 @@ else
     print("[❌] This script only works in Blox Fruits PlaceIds!")
     return
 end
+print("[✅] PlaceId OK!")
 
 -- ===== AntiCheat bypass =====
-for i, v in pairs(getgc(true)) do
-    if typeof(v) == "function" and islclosure(v) then
-        local upvs = debug.getupvalues(v)
-        for _, uv in pairs(upvs) do
-            if uv == "AndroidAnticheatKick" then
-                hookfunction(v, function(...)
-                    return nil
-                end)
+pcall(function()
+    for i, v in pairs(getgc(true)) do
+        if typeof(v) == "function" and islclosure(v) then
+            local upvs = debug.getupvalues(v)
+            for _, uv in pairs(upvs) do
+                if uv == "AndroidAnticheatKick" then
+                    hookfunction(v, function(...) return nil end)
+                end
             end
         end
     end
-end
-print("[✅] Anti-Cheat Bypass!!")
+end)
+print("[✅] Anti-Cheat Bypass attempted (may vary by executor)")
 
--- Services
+-- ===== Services =====
 local Workspace = game:GetService("Workspace")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 -- ===== ลบ Part ใน dojo =====
-local dojo = Workspace.Map["Oni Realm"].dojo
-local targetIndex = 41
+local dojo
+pcall(function()
+    local Map = Workspace:WaitForChild("Map", 10)
+    local OniRealm = Map:WaitForChild("Oni Realm", 10)
+    dojo = OniRealm:WaitForChild("dojo", 10)
+end)
 
+local targetIndex = 41
 local function deletePart()
-    local part = dojo:GetChildren()[targetIndex]
-    if part then
-        part:Destroy()
-        print("[✅] Part in Oni Temple fix")
+    if dojo then
+        local part = dojo:GetChildren()[targetIndex]
+        if part then
+            part:Destroy()
+            print("[✅] Part in Oni Temple fixed")
+        else
+            print("[⚠️] Part index " .. targetIndex .. " not found")
+        end
+    else
+        print("[⚠️] Dojo not found, skipping part deletion")
     end
 end
-
--- ลบ Part ครั้งแรก
 deletePart()
 
--- ตรวจสอบ Remote และเรียกใช้งาน
-local OniRemote = ReplicatedStorage:FindFirstChild("Modules") 
-                  and ReplicatedStorage.Modules:FindFirstChild("Net") 
-                  and ReplicatedStorage.Modules.Net:FindFirstChild("RF/OniTempleTransportation")
+-- ===== Remote Teleport =====
+local OniRemote
+pcall(function()
+    OniRemote = ReplicatedStorage:WaitForChild("Modules", 10)
+                   :WaitForChild("Net", 10)
+                   :WaitForChild("RF/OniTempleTransportation", 10)
+end)
 
 if OniRemote then
-    local args = {"InitiateTeleportToTemple"}
     pcall(function()
-        OniRemote:InvokeServer(unpack(args))
+        OniRemote:InvokeServer("InitiateTeleportToTemple")
+        print("[✅] Teleport Remote Invoked")
     end)
-    -- ลบ Part ซ้ำ หลังเรียก Remote เผื่อเกิด Part ใหม่
-    deletePart()
+    deletePart() -- ลบ Part ซ้ำหลัง teleport
+else
+    print("[⚠️] OniRemote not found, skipping teleport")
 end
 
 -- ===== ย้าย Temple of Time =====
-local MapStash = ReplicatedStorage:FindFirstChild("MapStash")
-if MapStash then
-    local temple = MapStash:FindFirstChild("Temple of Time")
-    if temple then
+local MapStash, temple
+pcall(function()
+    MapStash = ReplicatedStorage:WaitForChild("MapStash", 10)
+    temple = MapStash:WaitForChild("Temple of Time", 10)
+end)
+
+if temple then
+    pcall(function()
         temple.Parent = Workspace
-        print("[✅] Temple of time Bypass")
-    else
-        warn("[❌] Temple of time has been Bypassed!!")
-    end
+        print("[✅] Temple of Time Bypassed")
+    end)
 else
-    warn("[❌] Temple of time has been Bypassed!!")
+    print("[⚠️] Temple of Time not found, skipping")
 end
