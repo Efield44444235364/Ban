@@ -1,5 +1,4 @@
 
---[[
 local function loadingString(name, url)
     print("[🔄] Loading " .. name .. " ...")
     local success, result = pcall(function()
@@ -16,10 +15,10 @@ end
 --// Files
 loadingString("BF", "https://raw.githubusercontent.com/Efield44444235364/Ban/refs/heads/main/BF.lua")
 loadingString("Admins", "https://raw.githubusercontent.com/Efield44444235364/Ban/refs/heads/main/Admins.lua")
-loadingString("Oni optimize", "https://raw.githubusercontent.com/Efield44444235364/Ban/refs/heads/main/Oni.lua")
 loadingString("Ui", "https://raw.githubusercontent.com/Efield44444235364/Ban/refs/heads/main/Ui.lua")
 loadingString("Auto Reconnect", "https://raw.githubusercontent.com/Efield44444235364/Ban/refs/heads/main/Auto%20reconnect.lua")
 
---]]
+
+
 
 
