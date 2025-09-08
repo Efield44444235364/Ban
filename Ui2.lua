@@ -122,7 +122,7 @@ if lastSeen ~= version then
         ContentLabel.TextXAlignment = Enum.TextXAlignment.Left
         ContentLabel.TextYAlignment = Enum.TextYAlignment.Top
         ContentLabel.Text = [[
-🛡️ Blox Fruit Anti-Cheat bypass (beta)
+🛡️ Improve Blox Fruit Anti-Cheat bypass (beta)
 🔧Fix Bait bug Always show!!
 ✨ Brand new Ui and Animation
 🚀 Pain fruit lag has been improved
