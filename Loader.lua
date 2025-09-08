@@ -18,7 +18,7 @@ loadingString("Admins", "https://raw.githubusercontent.com/Efield44444235364/Ban
 loadingString("Ui", "https://raw.githubusercontent.com/Efield44444235364/Ban/refs/heads/main/Ui2.lua")
 loadingString("Auto Reconnect", "https://raw.githubusercontent.com/Efield44444235364/Ban/refs/heads/main/Auto%20reconnect.lua")
 
--- loadingString("Optimize", "")
+-- loadingString("Temple of time Optimize", "")
 
 
 
