@@ -5,7 +5,7 @@ local UserInputService = game:GetService("UserInputService")
 local player = game.Players.LocalPlayer
 
 -- Current version
-local version = "1.9"
+local version = "2.0"
 local fileName = "Patch.json"
 
 -- Read old version
@@ -122,11 +122,12 @@ if lastSeen ~= version then
         ContentLabel.TextXAlignment = Enum.TextXAlignment.Left
         ContentLabel.TextYAlignment = Enum.TextYAlignment.Top
         ContentLabel.Text = [[
-🛡️ Improve Blox Fruit Anti-Cheat bypass (beta)
-🔧Fix Bait bug Always show!!
-✨ Brand new Ui and Animation
-🚀 Pain fruit lag has been improved
-➕ Add Temple of time Optimize 
+        New Era is coming 2.0
+        ➕ Add Dash No Cd (Blox fruit)
+        🚀 preload for v.27.2.2
+        🥂 Instant Walk Speed with Bypass!!
+        🛠️ Fix All Function in the old version of blox fruit
+            Wait For Script load may 2-5 M!!
         ]]
         ContentLabel.Parent = Card
 
@@ -173,5 +174,3 @@ if lastSeen ~= version then
 
     createUI()
 end
-
-print("Clean Floating Announcement Loaded")
