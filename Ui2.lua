@@ -123,10 +123,13 @@ if lastSeen ~= version then
         ContentLabel.TextYAlignment = Enum.TextYAlignment.Top
         ContentLabel.Text = [[
         New Era is coming 2.0
-        ➕ Add Dash No Cd (Blox fruit)
+        
+        ➕ Add Dash No Cd (Blox Fruit)
+        ➕ Add Soru no Cd (Blox Fruit)
         🚀 preload for v.27.2.2
         🥂 Instant Walk Speed with Bypass!!
         🛠️ Fix All Function in the old version of blox fruit
+        
             Wait For Script load may 2-5 M!!
         ]]
         ContentLabel.Parent = Card
