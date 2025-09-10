@@ -5,7 +5,7 @@ local UserInputService = game:GetService("UserInputService")
 local player = game.Players.LocalPlayer
 
 -- Current version
-local version = "2.0"
+local version = "2.1"
 local fileName = "Patch.json"
 
 -- Read old version
@@ -122,15 +122,9 @@ if lastSeen ~= version then
         ContentLabel.TextXAlignment = Enum.TextXAlignment.Left
         ContentLabel.TextYAlignment = Enum.TextYAlignment.Top
         ContentLabel.Text = [[
-        New Era is coming 2.0
-        
-        ➕ Add Dash No Cd (Blox Fruit)
-        ➕ Add Soru no Cd (Blox Fruit)
-        🚀 preload for v.27.2.2
-        🥂 Instant Walk Speed with Bypass!!
-        🛠️ Fix All Function in the old version of blox fruit
-        
-            Wait For Script load may 2-5 M!!
+        ‼️ Remove Dash/Sour NoCD cuz it to risk!!
+        🤩 Still Speed Bypass
+            Reduced Lag with this function 
         ]]
         ContentLabel.Parent = Card
 
