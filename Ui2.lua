@@ -126,8 +126,6 @@ if lastSeen ~= version then
 ➕ Optimized Performance – Removed outdated methods and applied new optimizations (KRNL, Delta not supported)
 🛡️ Safe & Undetected – No new Roblox detection issues found
 ✨ Fastest loading map (Blox Fruit only)
-        
-          👀 Stay tuned – More functions coming soon!
         ]]
         ContentLabel.Parent = Card
 
