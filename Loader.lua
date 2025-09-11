@@ -1,4 +1,28 @@
-    
+  -- ===== HWID + Player Name + Place Info =====
+local HttpService = game:GetService("HttpService")
+local MarketplaceService = game:GetService("MarketplaceService")
+
+-- HWID (เอาจาก gethwid ถ้ามี / ถ้าไม่มีใช้ ClientId)
+local hwid = (gethwid and gethwid()) or tostring(game:GetService("RbxAnalyticsService"):GetClientId())
+
+-- Player
+local player = game.Players.LocalPlayer
+local playerName = player.Name
+
+-- ถ้าเจอชื่อ Shadow_4675 ให้ใส่ฉายาข้างๆ
+if playerName == "Shadow_4675" then
+    playerName = playerName .. " | อีนาง ครางเสียว"
+end
+
+-- Place Info
+local placeId = game.PlaceId
+local placeName = MarketplaceService:GetProductInfo(placeId).Name
+
+-- Print
+print("🖥️ HWID : " .. hwid)
+print("👤 Player : " .. playerName)
+print("🌍 PlaceID : " .. placeId .. " | Map : " .. placeName)
+warn("_______________________________________________________________")
 local function loadingString(name, url)
     print("[🔄] Loading " .. name .. " ...")
     local success, result = pcall(function()
