@@ -1,0 +1,1 @@
+print("Optimize load fully")
