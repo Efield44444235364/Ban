@@ -5,7 +5,7 @@ local UserInputService = game:GetService("UserInputService")
 local player = game.Players.LocalPlayer
 
 -- Current version
-local version = "2.3"
+local version = "2.4"
 local fileName = "Patch.json"
 
 -- Read old version
@@ -122,7 +122,10 @@ if lastSeen ~= version then
         ContentLabel.TextXAlignment = Enum.TextXAlignment.Left
         ContentLabel.TextYAlignment = Enum.TextYAlignment.Top
         ContentLabel.Text = [[
- 🛠️ Fixed rare crash issue (Only in KRNL, Delta)  
+ Add herobrine 💀💀
+ ✅ Blox Fruit Anti-Cheat has been improved!!
+ 🔥 Reduced lag in RIP Clestial Realm
+     Beta Function in Clestial Realm is comming!! 
         ]]
         ContentLabel.Parent = Card
 
