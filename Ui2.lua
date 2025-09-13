@@ -5,7 +5,7 @@ local UserInputService = game:GetService("UserInputService")
 local player = game.Players.LocalPlayer
 
 -- Current version
-local version = "2.2"
+local version = "2.3"
 local fileName = "Patch.json"
 
 -- Read old version
@@ -122,10 +122,7 @@ if lastSeen ~= version then
         ContentLabel.TextXAlignment = Enum.TextXAlignment.Left
         ContentLabel.TextYAlignment = Enum.TextYAlignment.Top
         ContentLabel.Text = [[
-👍🏽 Stable & Enhanced – Ensures smoother and more reliable gaming experience
-➕ Optimized Performance – Removed outdated methods and applied new optimizations (KRNL, Delta not supported)
-🛡️ Safe & Undetected – No new Roblox detection issues found
-✨ Fastest loading map (Blox Fruit only)
+ 🛠️ Fixed rare crash issue (Only in KRNL, Delta)  
         ]]
         ContentLabel.Parent = Card
 
