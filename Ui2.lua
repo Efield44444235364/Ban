@@ -5,7 +5,7 @@ local UserInputService = game:GetService("UserInputService")
 local player = game.Players.LocalPlayer
 
 -- Current version
-local version = "2.4"
+local version = "2.5"
 local fileName = "Patch.json"
 
 -- Read old version
@@ -122,10 +122,9 @@ if lastSeen ~= version then
         ContentLabel.TextXAlignment = Enum.TextXAlignment.Left
         ContentLabel.TextYAlignment = Enum.TextYAlignment.Top
         ContentLabel.Text = [[
- Add herobrine 💀💀
- ✅ Blox Fruit Anti-Cheat has been improved!!
- 🔥 Reduced lag in RIP Clestial Realm
-     Beta Function in Clestial Realm is comming!! 
+  ➕ Add Roblox Emot Menu!! (All Map)
+  🔧 Fixed All NPC not load (Blox fruit)
+      Next update: Speed Bypass will be integrated as a standard function And nee beta function will add dodge effect 
         ]]
         ContentLabel.Parent = Card
 
