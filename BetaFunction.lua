@@ -1,3 +1,6 @@
+local CoreGui = game:GetService("CoreGui")
+local StarterGui = game:GetService("StarterGui")
+
 -- ===== World Check =====
 local World1, World2, World3 = false, false, false
 if game.PlaceId == 2753915549 then
@@ -8,11 +11,25 @@ elseif game.PlaceId == 7449423635 then
     World3 = true
 else
     warn("[❌] This script only works in Blox Fruits PlaceIds!")
+    pcall(function()
+    StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, true)
+end)
+
+pcall(function()
+    StarterGui:SetCore("EmotesMenuOpen", true)
+end)
     return
 end
 
 -- ===== Toggle =====
 getgenv().InfAbility = true
+pcall(function()
+    StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, true)
+end)
+
+pcall(function()
+    StarterGui:SetCore("EmotesMenuOpen", true)
+end)
 
 -- ===== Services =====
 local Players = game:GetService("Players")
