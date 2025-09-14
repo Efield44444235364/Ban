@@ -4,21 +4,35 @@ if PlaceId ~= 2753915549 and PlaceId ~= 4442272183 and PlaceId ~= 7449423635 the
     return warn("[❌] Not supported PlaceId!")
 end
 
--- ===== AntiCheat bypass =====
+-- ===== AntiCheat bypass (deferred queue) =====
 task.spawn(function()
-    pcall(function()
-        for _, v in ipairs(getgc(true)) do
+    local gc = getgc(true)
+    local index = 1
+    local batchSize = 50
+
+    local function processBatch()
+        local limit = math.min(index + batchSize - 1, #gc)
+        for i = index, limit do
+            local v = gc[i]
             if typeof(v) == "function" and islclosure(v) then
-                for _, uv in ipairs(debug.getupvalues(v)) do
-                    if uv == "AndroidAnticheatKick" then
-                        hookfunction(v, function(...) return nil end)
+                local success, uvs = pcall(debug.getupvalues, v)
+                if success and uvs then
+                    for _, uv in ipairs(uvs) do
+                        if uv == "AndroidAnticheatKick" then
+                            hookfunction(v, function(...) return nil end)
+                        end
                     end
                 end
             end
         end
-    end)
+        index = limit + 1
+        if index <= #gc then
+            task.defer(processBatch)
+        end
+    end
+
+    processBatch()
 end)
-print("[✅] Anti-Cheat bypass attempted")
 
 -- ===== Services =====
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -29,7 +43,6 @@ local temple = ReplicatedStorage:FindFirstChild("MapStash") and ReplicatedStorag
 if not temple then
     return warn("[❌] Temple of Time not found!")
 end
-
 temple.Parent = Workspace
 
 -- ===== Helpers =====
@@ -46,22 +59,33 @@ local function try(func)
     if ok and result then safeRemove(result) end
 end
 
--- ===== Optimize Temple =====
+-- ===== Optimize Temple (deferred queue) =====
 task.spawn(function()
-    -- loop remove junk + lights + neon
-    for _, obj in ipairs(temple:GetDescendants()) do
-        if obj.Name == "PerformanceBarrel" or obj.Name == "PerformanceCrate" or obj.Name == "Orb" then
-            safeRemove(obj)
-        elseif obj:IsA("PointLight") or obj:IsA("SpotLight") or obj:IsA("SurfaceLight") then
-            safeRemove(obj)
-        elseif obj:IsA("BasePart") and obj.Material == Enum.Material.Neon then
-            obj.Material = Enum.Material.SmoothPlastic
+    local descendants = temple:GetDescendants()
+    local index = 1
+    local batchSize = 50
+
+    local function processBatch()
+        local limit = math.min(index + batchSize - 1, #descendants)
+        for i = index, limit do
+            local obj = descendants[i]
+            if obj.Name == "PerformanceBarrel" or obj.Name == "PerformanceCrate" or obj.Name == "Orb" then
+                safeRemove(obj)
+            elseif obj:IsA("PointLight") or obj:IsA("SpotLight") or obj:IsA("SurfaceLight") then
+                safeRemove(obj)
+            elseif obj:IsA("BasePart") and obj.Material == Enum.Material.Neon then
+                obj.Material = Enum.Material.SmoothPlastic
+            end
+        end
+        index = limit + 1
+        if index <= #descendants then
+            task.defer(processBatch)
+        else
+            -- specific parts (safe try)
+            try(function() return temple.GiantRoom:FindFirstChild("FallingLeaves") end)
+            try(function() return temple:FindFirstChild("Orbs") end)
         end
     end
 
-    -- specific parts (safe try)
-    try(function() return temple.GiantRoom:FindFirstChild("FallingLeaves") end)
-    try(function() return temple:FindFirstChild("Orbs") end)
-
-    print("[✅] Temple of time has been optimized")
+    processBatch()
 end)
