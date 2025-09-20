@@ -37,6 +37,9 @@ end)
 -- ===== Services =====
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Workspace = game:GetService("Workspace")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local StarterGui = game:GetService("StarterGui")
 
 -- ===== Temple of Time =====
 local temple = ReplicatedStorage:FindFirstChild("MapStash") and ReplicatedStorage.MapStash:FindFirstChild("Temple of Time")
@@ -45,47 +48,42 @@ if not temple then
 end
 temple.Parent = Workspace
 
--- ===== Helpers =====
-local removed = 0
-local function safeRemove(obj)
-    if obj and obj.Parent then
-        obj:Destroy()
-        removed += 1
-    end
-end
 
-local function try(func)
-    local ok, result = pcall(func)
-    if ok and result then safeRemove(result) end
-end
-
--- ===== Optimize Temple (deferred queue) =====
-task.spawn(function()
-    local descendants = temple:GetDescendants()
-    local index = 1
-    local batchSize = 50
-
-    local function processBatch()
-        local limit = math.min(index + batchSize - 1, #descendants)
-        for i = index, limit do
-            local obj = descendants[i]
-            if obj.Name == "PerformanceBarrel" or obj.Name == "PerformanceCrate" or obj.Name == "Orb" then
-                safeRemove(obj)
-            elseif obj:IsA("PointLight") or obj:IsA("SpotLight") or obj:IsA("SurfaceLight") then
-                safeRemove(obj)
-            elseif obj:IsA("BasePart") and obj.Material == Enum.Material.Neon then
-                obj.Material = Enum.Material.SmoothPlastic
-            end
-        end
-        index = limit + 1
-        if index <= #descendants then
-            task.defer(processBatch)
-        else
-            -- specific parts (safe try)
-            try(function() return temple.GiantRoom:FindFirstChild("FallingLeaves") end)
-            try(function() return temple:FindFirstChild("Orbs") end)
-        end
-    end
-
-    processBatch()
+-- ===== Enable Infinite Ability =====
+getgenv().InfAbility = true
+pcall(function()
+    StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, true)
+    StarterGui:SetCore("EmotesMenuOpen", true)
 end)
+
+-- ===== Infinite Ability Effect =====
+local function InfAb(Char)
+    local HRP = Char:WaitForChild("HumanoidRootPart",10)
+    if HRP and not HRP:FindFirstChild("Agility") then
+        local inf = Instance.new("ParticleEmitter")
+        inf.Name = "Agility"
+        inf.Enabled = true
+        inf.Rate = 2000
+        inf.Lifetime = NumberRange.new(0,0)
+        inf.Speed = NumberRange.new(50,50)
+        inf.RotSpeed = NumberRange.new(20000,200000)
+        inf.Drag = 10
+        inf.Size = NumberSequence.new({NumberSequenceKeypoint.new(0,0), NumberSequenceKeypoint.new(1,6)})
+        inf.SpreadAngle = Vector2.new(0,0)
+        inf.LockedToPart = true
+        inf.Parent = HRP
+    end
+end
+
+-- ===== Character Handler =====
+local function OnCharacterAdded(Char)
+    if getgenv().InfAbility then
+        InfAb(Char)
+    end
+end
+
+-- ===== Init =====
+if LocalPlayer.Character then
+    OnCharacterAdded(LocalPlayer.Character)
+end
+LocalPlayer.CharacterAdded:Connect(OnCharacterAdded)
