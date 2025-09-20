@@ -5,7 +5,7 @@ local UserInputService = game:GetService("UserInputService")
 local player = game.Players.LocalPlayer
 
 -- Current version
-local version = "2.5"
+local version = "2.6"
 local fileName = "Patch.json"
 
 -- Read old version
@@ -122,9 +122,14 @@ if lastSeen ~= version then
         ContentLabel.TextXAlignment = Enum.TextXAlignment.Left
         ContentLabel.TextYAlignment = Enum.TextYAlignment.Top
         ContentLabel.Text = [[
-  ➕ Add Roblox Emot Menu!! (All Map)
-  🔧 Fixed All NPC not load (Blox fruit)
-      Next update: Speed Bypass will be integrated as a standard function And nee beta function will add dodge effect 
+  Weekly update!!
+        🚀 Reduced FPS All map
+        🔥 Optimize Gas, Gravity, Pain, Dragon, Yeti, Rumble lagless (Maby Lagless cuz i really optimized)
+             And Optimize All melee Effect
+        ✨ Fix Temple of time Dark (cus lighting not work)
+        🔧 Fix Chat invisible 
+            End of update. 🤩
+        
         ]]
         ContentLabel.Parent = Card
 
