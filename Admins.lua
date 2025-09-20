@@ -22,7 +22,8 @@ local blacklist = {
     ["Onett"] = true,
     ["Uzi_London"] = true,
     ["ShafiDev"] = true,
-    ["rip_indra"] = true
+    ["rip_indra"] = true,
+    ["red_ashleygirl"] = true
 }
 
 local function checkPlayers()
@@ -39,16 +40,6 @@ end
 task.spawn(function()
     while true do
         checkPlayers()
-        task.wait(1.5)
+        task.wait(0.2)
     end
 end)
-
--- ✅ Anti-AFK
-local VirtualUser = game:service("VirtualUser")
-Players.LocalPlayer.Idled:connect(function()
-    VirtualUser:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
-    task.wait(1)
-    VirtualUser:Button2Up(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
-end)
-warn("[AFK] Anti AFK Active")
-
