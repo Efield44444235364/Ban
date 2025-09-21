@@ -38,11 +38,9 @@ end
 
 --// Files (with wait)
 loadingString("BF", "https://raw.githubusercontent.com/Efield44444235364/Ban/refs/heads/main/BF.lua")
-task.wait(0.8)
+loadingString("Optimize", "https://raw.githubusercontent.com/Efield44444235364/Ban/refs/heads/main/blox%20fruit%20Optimize.lua")
 loadingString("Admins", "https://raw.githubusercontent.com/Efield44444235364/Ban/refs/heads/main/Admins.lua")
 loadingString("Beta Function", "https://raw.githubusercontent.com/Efield44444235364/Ban/refs/heads/main/BetaFunction.lua")
-task.wait(0.8)
---// Files (no wait)
 loadingString("Auto Reconnect", "https://raw.githubusercontent.com/Efield44444235364/Ban/refs/heads/main/Auto%20reconnect.lua")
 loadingString("Ui", "https://raw.githubusercontent.com/Efield44444235364/Ban/refs/heads/main/Ui2.lua")
 
