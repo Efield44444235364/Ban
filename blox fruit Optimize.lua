@@ -1,8 +1,9 @@
--- ===== PlaceId Check =====
-local PlaceId = game.PlaceId
-if PlaceId ~= 2753915549 and PlaceId ~= 4442272183 and PlaceId ~= 7449423635 then
-    return warn("[❌] Not supported PlaceId!")
-end
+-- ===== PlaceId Check =====  
+local PlaceId = game.PlaceId  
+if PlaceId ~= 2753915549 and PlaceId ~= 4442272183 and PlaceId ~= 7449423635 then  
+    return warn("[❌] Not supported PlaceId!")  
+end  
+
 
 local Players = game:GetService("Players")
 local Workspace = game:GetService("Workspace")
@@ -11,7 +12,7 @@ local TweenService = game:GetService("TweenService")
 
 local LocalPlayer = Players.LocalPlayer
 
--- 🔔 Notification Stack System
+-- 🔔 Notification System
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "NotificationUI"
 screenGui.Parent = LocalPlayer:WaitForChild("PlayerGui")
@@ -172,7 +173,7 @@ end
 
 RemoveMiscFromNPCs()
 
--- ✅ เฝ้าระวัง NPC ใหม่ spawn มา
+-- ✅ เฝ้าระวัง NPC ใหม่ spawn
 local npcsFolder = Workspace:FindFirstChild("NPCs")
 if npcsFolder then
     npcsFolder.ChildAdded:Connect(function(npc)
@@ -188,48 +189,41 @@ if npcsFolder then
     end)
 end
 
--- ✅ Hook Death & Respawn Effect
+-- ✅ Hook Death & Respawn
 pcall(function()
     hookfunction(require(ReplicatedStorage.Effect.Container.Death), function() end)
     hookfunction(require(ReplicatedStorage.Effect.Container.Respawn), function() end)
     createNotification("Death & Respawn Hooked",3)
 end)
 
--- ✅ Monitor Enemies: Invisible/UnInvisible
+-- ✅ Monitor Enemies แบบ loop ตรวจสอบเรื่อย ๆ
 local enemiesFolder = Workspace:FindFirstChild("Enemies")
-
-local function monitorEnemy(enemy)
-    if enemy.ClassName ~= "Model" then return end
-    local humanoid = enemy:FindFirstChild("Humanoid")
-    if not humanoid then return end
-
-    humanoid.HealthChanged:Connect(function(health)
-        local maxHealth = humanoid.MaxHealth or 100
-
-        if health <= 0 then
-            for _, part in ipairs(enemy:GetDescendants()) do
-                if part:IsA("BasePart") then
-                    part.Transparency = 1
-                    part.CanCollide = false
-                end
-            end
-        elseif health >= maxHealth then
-            for _, part in ipairs(enemy:GetDescendants()) do
-                if part:IsA("BasePart") then
-                    part.Transparency = 0
-                    part.CanCollide = true
+if enemiesFolder then
+    spawn(function()
+        while true do
+            task.wait(0.2) -- ปรับเวลาตามต้องการ
+            for _, enemy in ipairs(enemiesFolder:GetChildren()) do
+                if enemy.ClassName == "Model" then
+                    local humanoid = enemy:FindFirstChild("Humanoid")
+                    if humanoid then
+                        local health = humanoid.Health
+                        local maxHealth = humanoid.MaxHealth or 100
+                        for _, part in ipairs(enemy:GetDescendants()) do
+                            if part:IsA("BasePart") then
+                                if health <= 0 then
+                                    part.Transparency = 1
+                                    part.CanCollide = false
+                                elseif health >= maxHealth then
+                                    part.Transparency = 0
+                                    part.CanCollide = true
+                                end
+                            end
+                        end
+                    end
                 end
             end
         end
     end)
-end
-
-if enemiesFolder then
-    for _, enemy in ipairs(enemiesFolder:GetChildren()) do
-        monitorEnemy(enemy)
-    end
-
-    enemiesFolder.ChildAdded:Connect(monitorEnemy)
     createNotification("Enemies Visibility Monitored",3)
 end
 
