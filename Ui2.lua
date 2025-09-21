@@ -5,7 +5,7 @@ local UserInputService = game:GetService("UserInputService")
 local player = game.Players.LocalPlayer
 
 -- Current version
-local version = "2.8"
+local version = "2.8.1"
 local fileName = "Patch.json"
 
 -- Read old version
