@@ -5,7 +5,7 @@ local UserInputService = game:GetService("UserInputService")
 local player = game.Players.LocalPlayer
 
 -- Current version
-local version = "2.7"
+local version = "2.8"
 local fileName = "Patch.json"
 
 -- Read old version
@@ -123,8 +123,8 @@ if lastSeen ~= version then
         ContentLabel.TextYAlignment = Enum.TextYAlignment.Top
         ContentLabel.Text = [[
   Today update!!
-        🚀🔥 Really Optimize blox fruit (i literally improve)
-             end of update. 💖
+        
+        Blox Fruits Optimizer fix  Enemy monitoring now fully reliable all optimizer features intact ✅
         ]]
         ContentLabel.Parent = Card
 
