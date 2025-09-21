@@ -5,7 +5,7 @@ local UserInputService = game:GetService("UserInputService")
 local player = game.Players.LocalPlayer
 
 -- Current version
-local version = "2.6"
+local version = "2.7"
 local fileName = "Patch.json"
 
 -- Read old version
@@ -122,14 +122,9 @@ if lastSeen ~= version then
         ContentLabel.TextXAlignment = Enum.TextXAlignment.Left
         ContentLabel.TextYAlignment = Enum.TextYAlignment.Top
         ContentLabel.Text = [[
-  Weekly update!!
-        🚀 Reduced FPS All map
-        🔥 Optimize Gas, Gravity, Pain, Dragon, Yeti, Rumble lagless (Maby Lagless cuz i really optimized)
-             And Optimize All melee Effect
-        ✨ Fix Temple of time Dark (cus lighting not work)
-        🔧 Fix Chat invisible 
-            End of update. 🤩
-        
+  Today update!!
+        🚀🔥 Really Optimize blox fruit (i literally improve)
+             end of update. 💖
         ]]
         ContentLabel.Parent = Card
 
