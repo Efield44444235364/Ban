@@ -64,7 +64,6 @@ local function createNotification(message,duration)
     text.TextXAlignment = Enum.TextXAlignment.Left
     text.Parent = frame
 
-    -- Fade In
     frame.BackgroundTransparency = 1
     text.TextTransparency = 1
     local tweenIn = TweenService:Create(frame, TweenInfo.new(0.3), {BackgroundTransparency=0.1})
@@ -72,7 +71,6 @@ local function createNotification(message,duration)
     tweenIn:Play()
     tweenTextIn:Play()
 
-    -- Auto remove
     task.delay(duration,function()
         local tweenOut = TweenService:Create(frame, TweenInfo.new(0.3), {BackgroundTransparency=1})
         local tweenTextOut = TweenService:Create(text, TweenInfo.new(0.3), {TextTransparency=1})
@@ -135,7 +133,7 @@ local function OptimizeAllParts(parent)
             obj.Reflectance = 0
         end
     end
-    createNotification("Workspace Parts Optimized (Safe JumpButton)",3)
+    createNotification("Optimized load",3)
 end
 
 OptimizeAllParts(Workspace)
@@ -195,10 +193,10 @@ pcall(function()
     createNotification("Death & Respawn Hooked",3)
 end)
 
--- ✅ Monitor Enemies + ลดขนาด 20%
+-- ✅ Monitor Enemies + Reduce Size + Limit Display
 local enemiesFolder = Workspace:FindFirstChild("Enemies")
 if enemiesFolder then
-    local optimizedEnemies = {} -- มอนที่ optimize แล้ว
+    local optimizedEnemies = {}
 
     local function optimizeEnemy(enemy)
         if optimizedEnemies[enemy] then return end
@@ -209,7 +207,7 @@ if enemiesFolder then
             enemy:SetPrimaryPartCFrame(rootPart.CFrame)
             for _, part in ipairs(enemy:GetDescendants()) do
                 if part:IsA("BasePart") then
-                    part.Size = part.Size * 0.8 -- ลดขนาด 20%
+                    part.Size = part.Size * 0.8
                 end
             end
         end
@@ -238,21 +236,41 @@ if enemiesFolder then
         end)
     end
 
+    local function updateVisibility()
+        local allEnemies = {}
+        for _, e in ipairs(enemiesFolder:GetChildren()) do
+            if e:IsA("Model") then
+                table.insert(allEnemies,e)
+            end
+        end
+        local limit = 3
+        for i, e in ipairs(allEnemies) do
+            for _, part in ipairs(e:GetDescendants()) do
+                if part:IsA("BasePart") then
+                    part.Transparency = (i <= limit) and 0.8 or 1 -- แสดงเฉพาะ 2-3 ตัว
+                    part.CanCollide = (i <= limit)
+                end
+            end
+        end
+    end
+
     for _, enemy in ipairs(enemiesFolder:GetChildren()) do
         monitorEnemy(enemy)
     end
 
-    enemiesFolder.ChildAdded:Connect(monitorEnemy)
+    enemiesFolder.ChildAdded:Connect(function(enemy)
+        monitorEnemy(enemy)
+    end)
 
-    -- Loop เบา ๆ สำหรับ optimize มอนใหม่ ๆ
     spawn(function()
         while true do
             task.wait(0.2)
             for _, enemy in ipairs(enemiesFolder:GetChildren()) do
                 optimizeEnemy(enemy)
             end
+            updateVisibility()
         end
     end)
 
-    createNotification("Enemies Monitored + Size Reduced 20%",3)
+    createNotification("Enemies Monitored + Size Reduced + Limited Display",3)
 end
