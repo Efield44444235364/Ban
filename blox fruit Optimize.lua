@@ -4,7 +4,6 @@ if PlaceId ~= 2753915549 and PlaceId ~= 4442272183 and PlaceId ~= 7449423635 the
     return warn("[❌] Not supported PlaceId!")  
 end  
 
-
 local Players = game:GetService("Players")
 local Workspace = game:GetService("Workspace")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -196,35 +195,64 @@ pcall(function()
     createNotification("Death & Respawn Hooked",3)
 end)
 
--- ✅ Monitor Enemies แบบ loop ตรวจสอบเรื่อย ๆ
+-- ✅ Monitor Enemies + ลดขนาด 20%
 local enemiesFolder = Workspace:FindFirstChild("Enemies")
 if enemiesFolder then
-    spawn(function()
-        while true do
-            task.wait(0.2) -- ปรับเวลาตามต้องการ
-            for _, enemy in ipairs(enemiesFolder:GetChildren()) do
-                if enemy.ClassName == "Model" then
-                    local humanoid = enemy:FindFirstChild("Humanoid")
-                    if humanoid then
-                        local health = humanoid.Health
-                        local maxHealth = humanoid.MaxHealth or 100
-                        for _, part in ipairs(enemy:GetDescendants()) do
-                            if part:IsA("BasePart") then
-                                if health <= 0 then
-                                    part.Transparency = 1
-                                    part.CanCollide = false
-                                elseif health >= maxHealth then
-                                    part.Transparency = 0
-                                    part.CanCollide = true
-                                end
-                            end
-                        end
-                    end
+    local optimizedEnemies = {} -- มอนที่ optimize แล้ว
+
+    local function optimizeEnemy(enemy)
+        if optimizedEnemies[enemy] then return end
+        optimizedEnemies[enemy] = true
+
+        local rootPart = enemy:FindFirstChild("HumanoidRootPart")
+        if rootPart then
+            enemy:SetPrimaryPartCFrame(rootPart.CFrame)
+            for _, part in ipairs(enemy:GetDescendants()) do
+                if part:IsA("BasePart") then
+                    part.Size = part.Size * 0.8 -- ลดขนาด 20%
                 end
             end
         end
+    end
+
+    local function monitorEnemy(enemy)
+        if enemy.ClassName ~= "Model" then return end
+        optimizeEnemy(enemy)
+
+        local humanoid = enemy:FindFirstChild("Humanoid")
+        if not humanoid then return end
+
+        humanoid.HealthChanged:Connect(function(health)
+            local maxHealth = humanoid.MaxHealth or 100
+            for _, part in ipairs(enemy:GetDescendants()) do
+                if part:IsA("BasePart") then
+                    if health <= 0 then
+                        part.Transparency = 1
+                        part.CanCollide = false
+                    elseif health >= maxHealth then
+                        part.Transparency = 0
+                        part.CanCollide = true
+                    end
+                end
+            end
+        end)
+    end
+
+    for _, enemy in ipairs(enemiesFolder:GetChildren()) do
+        monitorEnemy(enemy)
+    end
+
+    enemiesFolder.ChildAdded:Connect(monitorEnemy)
+
+    -- Loop เบา ๆ สำหรับ optimize มอนใหม่ ๆ
+    spawn(function()
+        while true do
+            task.wait(0.2)
+            for _, enemy in ipairs(enemiesFolder:GetChildren()) do
+                optimizeEnemy(enemy)
+            end
+        end
     end)
-    createNotification("Enemies Visibility Monitored",3)
+
+    createNotification("Enemies Monitored + Size Reduced 20%",3)
 end
-
-
