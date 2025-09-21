@@ -1,9 +1,81 @@
 local Players = game:GetService("Players")
 local Workspace = game:GetService("Workspace")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local StarterGui = game:GetService("StarterGui")
+local TweenService = game:GetService("TweenService")
 
 local LocalPlayer = Players.LocalPlayer
+
+-- 🔔 Notification Stack System
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "NotificationUI"
+screenGui.Parent = LocalPlayer:WaitForChild("PlayerGui")
+
+local holder = Instance.new("Frame")
+holder.Size = UDim2.new(1,0,1,0)
+holder.Position = UDim2.new(0,0,0,0)
+holder.BackgroundTransparency = 1
+holder.Parent = screenGui
+
+local layout = Instance.new("UIListLayout")
+layout.SortOrder = Enum.SortOrder.LayoutOrder
+layout.Padding = UDim.new(0,10)
+layout.VerticalAlignment = Enum.VerticalAlignment.Top
+layout.HorizontalAlignment = Enum.HorizontalAlignment.Right
+layout.Parent = holder
+
+layout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+    holder.CanvasSize = UDim2.new(0,0,0,layout.AbsoluteContentSize.Y)
+end)
+
+local function createNotification(message,duration)
+    duration = duration or 3
+    local frame = Instance.new("Frame")
+    frame.Size = UDim2.new(0,300,0,60)
+    frame.BackgroundColor3 = Color3.fromRGB(30,30,30)
+    frame.BackgroundTransparency = 0.1
+    frame.BorderSizePixel = 0
+    frame.Parent = holder
+
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0,12)
+    corner.Parent = frame
+
+    local shadow = Instance.new("UIStroke")
+    shadow.Thickness = 1
+    shadow.Color = Color3.fromRGB(70,70,70)
+    shadow.Transparency = 0.4
+    shadow.Parent = frame
+
+    local text = Instance.new("TextLabel")
+    text.Size = UDim2.new(1,-20,1,-20)
+    text.Position = UDim2.new(0,10,0,10)
+    text.BackgroundTransparency = 1
+    text.Text = message
+    text.TextColor3 = Color3.fromRGB(255,255,255)
+    text.TextWrapped = true
+    text.Font = Enum.Font.GothamSemibold
+    text.TextSize = 16
+    text.TextXAlignment = Enum.TextXAlignment.Left
+    text.Parent = frame
+
+    -- Fade In
+    frame.BackgroundTransparency = 1
+    text.TextTransparency = 1
+    local tweenIn = TweenService:Create(frame, TweenInfo.new(0.3), {BackgroundTransparency=0.1})
+    local tweenTextIn = TweenService:Create(text, TweenInfo.new(0.3), {TextTransparency=0})
+    tweenIn:Play()
+    tweenTextIn:Play()
+
+    -- Auto remove
+    task.delay(duration,function()
+        local tweenOut = TweenService:Create(frame, TweenInfo.new(0.3), {BackgroundTransparency=1})
+        local tweenTextOut = TweenService:Create(text, TweenInfo.new(0.3), {TextTransparency=1})
+        tweenOut:Play()
+        tweenTextOut:Play()
+        tweenOut.Completed:Wait()
+        frame:Destroy()
+    end)
+end
 
 -- ✅ Whitelist Touch JumpButton
 local whitelist = {
@@ -57,15 +129,7 @@ local function OptimizeAllParts(parent)
             obj.Reflectance = 0
         end
     end
-
-    -- แจ้งเตือนเมื่อ Optimize เสร็จ
-    pcall(function()
-        StarterGui:SetCore("SendNotification", {
-            Title = "BloxFruits Optimizer",
-            Text = "Workspace Parts Optimized (Safe JumpButton)",
-            Duration = 3
-        })
-    end)
+    createNotification("Workspace Parts Optimized (Safe JumpButton)",3)
 end
 
 OptimizeAllParts(Workspace)
@@ -79,13 +143,7 @@ local chestEffects = ReplicatedStorage:FindFirstChild("Effect")
 
 if chestEffects then
     chestEffects:Destroy()
-    pcall(function()
-        StarterGui:SetCore("SendNotification", {
-            Title = "BloxFruits Optimizer",
-            Text = "ChestEffects Removed",
-            Duration = 3
-        })
-    end)
+    createNotification("ChestEffects Removed",3)
 end
 
 -- ✅ ลบ Part "MISC." ใน HumanoidRootPart ของ NPC ทุกตัว
@@ -103,13 +161,7 @@ local function RemoveMiscFromNPCs()
         end
     end
 
-    pcall(function()
-        StarterGui:SetCore("SendNotification", {
-            Title = "BloxFruits Optimizer",
-            Text = "NPC Misc Removed",
-            Duration = 3
-        })
-    end)
+    createNotification("NPC Misc Removed",3)
 end
 
 RemoveMiscFromNPCs()
@@ -134,12 +186,7 @@ end
 pcall(function()
     hookfunction(require(ReplicatedStorage.Effect.Container.Death), function() end)
     hookfunction(require(ReplicatedStorage.Effect.Container.Respawn), function() end)
-
-    StarterGui:SetCore("SendNotification", {
-        Title = "BloxFruits Optimizer",
-        Text = "Death & Respawn Hooked",
-        Duration = 3
-    })
+    createNotification("Death & Respawn Hooked",3)
 end)
 
 -- ✅ Monitor Enemies: Invisible/UnInvisible
@@ -177,12 +224,5 @@ if enemiesFolder then
     end
 
     enemiesFolder.ChildAdded:Connect(monitorEnemy)
-
-    pcall(function()
-        StarterGui:SetCore("SendNotification", {
-            Title = "BloxFruits Optimizer",
-            Text = "Enemies Visibility Monitored",
-            Duration = 3
-        })
-    end)
+    createNotification("Enemies Visibility Monitored",3)
 end
