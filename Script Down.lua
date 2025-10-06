@@ -2,15 +2,40 @@
 local allowedPlaces = {
     [2753915549] = true,
     [7449423635] = true,
-    [4442272183] = true
+    [4442272183] = true,
+    [168556275] = true
 }
 
 if not allowedPlaces[game.PlaceId] then
-    warn("[❌] Not in allowed map!")
+    warn("Script Down")
     return
 end
 
+-- ✅ ชื่อไฟล์สำหรับจดจำว่ามีการแสดง Blur ไปแล้วหรือยัง
+local blurFile = "ScriptDown.json"
 
+local hasBlurred = false
+if isfile and isfile(blurFile) then
+    hasBlurred = true
+end
+
+-- 🌫️ ถ้าเคยเบลอแล้ว → แสดงแค่ Notification ของ Roblox แล้วหยุดตรงนี้
+if hasBlurred then
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "ℹ️ Notification",
+        Text = "⚠️ Script Down For a While",
+        Duration = 4
+    })
+    return
+end
+
+-- 🧠 บันทึกว่าเคยเบลอแล้ว
+if writefile then
+    writefile(blurFile, "shown")
+end
+
+
+-- 🌫️ โหลดบริการ
 local TweenService = game:GetService("TweenService")
 local Lighting = game:GetService("Lighting")
 
@@ -51,7 +76,6 @@ Title.TextTransparency = 1
 local Line = Instance.new("Frame")
 Line.Parent = Frame
 Line.BackgroundColor3 = Color3.new(1, 1, 1)
-Line.BackgroundTransparency = 0
 Line.Size = UDim2.new(0, 0, 0, 2)
 Line.Position = UDim2.new(0.5, 0, 0.35, 0)
 Line.AnchorPoint = Vector2.new(0.5, 0)
@@ -63,7 +87,7 @@ corner.Parent = Line
 -- 📝 Body
 local Body = Instance.new("TextLabel")
 Body.Parent = Frame
-Body.Text = "⚠️ Script Down for a while\n we rewrite all script and fix some function"
+Body.Text = "⚠️ Script Down for a while\nWe’re rewriting and fixing all functions."
 Body.TextColor3 = Color3.new(1, 1, 1)
 Body.Font = Enum.Font.Gotham
 Body.TextScaled = true
@@ -86,7 +110,7 @@ task.wait(0.8)
 
 TweenService:Create(Body, TweenInfo.new(1), {TextTransparency = 0}):Play()
 
--- ⏳ รอแล้วค่อย fade ออก
+-- ⏳ fade ออก
 task.delay(7, function()
 	TweenService:Create(Body, TweenInfo.new(0.8), {TextTransparency = 1}):Play()
 	TweenService:Create(Title, TweenInfo.new(0.8), {TextTransparency = 1}):Play()
