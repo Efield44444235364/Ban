@@ -1,1 +1,0 @@
-print("Optimize load fully")
