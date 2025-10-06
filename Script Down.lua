@@ -1,3 +1,16 @@
+-- ✅ ตรวจสอบแมพ
+local allowedPlaces = {
+    [2753915549] = true,
+    [7449423635] = true,
+    [4442272183] = true
+}
+
+if not allowedPlaces[game.PlaceId] then
+    warn("[❌] Not in allowed map!")
+    return
+end
+
+
 local TweenService = game:GetService("TweenService")
 local Lighting = game:GetService("Lighting")
 
