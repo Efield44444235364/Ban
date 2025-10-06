@@ -1,4 +1,6 @@
-  -- ===== HWID + Player Name + Place Info =====
+ --[[
+
+-- ===== HWID + Player Name + Place Info =====
 local HttpService = game:GetService("HttpService")
 local MarketplaceService = game:GetService("MarketplaceService")
 
@@ -44,7 +46,7 @@ loadingString("Beta Function", "https://raw.githubusercontent.com/Efield44444235
 loadingString("Auto Reconnect", "https://raw.githubusercontent.com/Efield44444235364/Ban/refs/heads/main/Auto%20reconnect.lua")
 -- loadingString("Ui", "https://raw.githubusercontent.com/Efield44444235364/Ban/refs/heads/main/Ui2.lua")
 
-
+]]
 
 
 
