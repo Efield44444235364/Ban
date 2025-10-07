@@ -14,8 +14,8 @@ local hwid = (gethwid and gethwid()) or tostring(game:GetService("RbxAnalyticsSe
 local player = game.Players.LocalPlayer
 local playerName = player.Name
 
--- ถ้าเจอชื่อ Shadow_4675 ให้ใส่ฉายาข้างๆ
-if playerName == "Shadow_4675" then
+-- ถ้าเจอชื่อ shadow_4675 ให้ใส่ฉายาข้างๆ
+if playerName == "shadow_4675" then
     playerName = playerName .. " | อีนาง ครางเสียว"
 end
 
