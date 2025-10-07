@@ -38,7 +38,7 @@ end
 
 -- ⚙️ CONFIG Dodge
 local DODGE_DISTANCE = 70
-local DODGE_TIME = 0.24
+local DODGE_TIME = 0.25
 
 -- 🌀 ระบบพุ่ง
 local function LoadFullDash()
