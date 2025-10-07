@@ -102,7 +102,7 @@ local function createUI()
     ContentLabel.TextXAlignment = Enum.TextXAlignment.Left
     ContentLabel.TextYAlignment = Enum.TextYAlignment.Top
     ContentLabel.Text = [[
-6/10/2025 Update
+7/10/2025 Update
 
 Performance Improvements:
 
