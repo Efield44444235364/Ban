@@ -5,7 +5,7 @@ local UserInputService = game:GetService("UserInputService")
 local player = game.Players.LocalPlayer
 
 -- Current version
-local version = "Taylor Swift" -- เวอร์ชันใหม่
+local version = "Taylor Swift " -- เวอร์ชันใหม่
 local fileName = "Patch.json"
 
 -- Read old version
@@ -111,7 +111,8 @@ Blox Fruits and all maps optimized for smoother FPS Optimizer improvements appli
 User Interface:
 
 Refreshed UI design with minimal clean green theme for easier navigation.
-
+and reduced unnecessary Ui
+    
 Beta Features
 
 Long dash feature added (currently in beta may contain minor bugs)
