@@ -1,18 +1,3 @@
---[[  
-  🔧 Blox Fruits Optimizer (Safe Mode)  
-  Features:  
-    - PlaceId Check  
-    - Notification System  
-    - Whitelist JumpButton  
-    - SmartScale สำหรับ UI  
-    - StreamingEnabled  
-    - ปิดเงา/แสงสะท้อน ทุก Part  
-    - ลบ ChestEffects  
-    - ลบ Part "MISC." ใน NPC  
-    - Hook Death & Respawn  
-    - Monitor Enemies Visibility  
-]]--
-
 -- ===== ✅ PlaceId Check =====
 local PlaceId = game.PlaceId
 if PlaceId ~= 2753915549 and PlaceId ~= 4442272183 and PlaceId ~= 7449423635 then
@@ -135,7 +120,7 @@ local function OptimizeAllParts(parent)
             obj.Reflectance = 0
         end
     end
-    createNotification("Workspace Parts Optimized (Safe JumpButton)",3)
+    createNotification("Optimized load!!",3)
 end
 OptimizeAllParts(Workspace)
 
@@ -148,7 +133,6 @@ local chestEffects = ReplicatedStorage:FindFirstChild("Effect")
 
 if chestEffects then
     chestEffects:Destroy()
-    createNotification("ChestEffects Removed",3)
 end
 
 -- ===== ✅ Remove NPC Misc =====
@@ -165,7 +149,6 @@ local function RemoveMiscFromNPCs()
             end  
         end  
     end  
-    createNotification("NPC Misc Removed",3)
 end
 RemoveMiscFromNPCs()
 
@@ -189,7 +172,7 @@ end
 pcall(function()
     hookfunction(require(ReplicatedStorage.Effect.Container.Death), function() end)
     hookfunction(require(ReplicatedStorage.Effect.Container.Respawn), function() end)
-    createNotification("Death & Respawn Hooked",3)
+    createNotification("All Effect Has been improved ",3)
 end)
 
 -- ===== ✅ Monitor Enemies =====
@@ -197,7 +180,7 @@ local enemiesFolder = Workspace:FindFirstChild("Enemies")
 if enemiesFolder then
     spawn(function()
         while true do
-            task.wait(0.2)
+            task.wait(0.1)
             for _, enemy in ipairs(enemiesFolder:GetChildren()) do
                 if enemy.ClassName == "Model" then
                     local humanoid = enemy:FindFirstChild("Humanoid")
@@ -220,5 +203,4 @@ if enemiesFolder then
             end
         end
     end)
-    createNotification("Enemies Visibility Monitored",3)
 end
