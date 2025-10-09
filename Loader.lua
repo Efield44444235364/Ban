@@ -1,3 +1,5 @@
+task.wait(2)
+
 if not _G.efield_loader then
     game.Players.LocalPlayer:Kick("This is a fucking old script pls get new from Dev!!!!. End of story🥰😘 \n in 4sec game gonnabe shutdown!")
     wait(4)
