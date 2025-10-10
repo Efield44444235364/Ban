@@ -205,4 +205,3 @@ if enemiesFolder then
     end)
 end
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Efield44444235364/Ban/refs/heads/main/RamClear%20Auto.lua"))()
