@@ -1,7 +1,7 @@
 -- ===== ✅ PlaceId Check =====
 local PlaceId = game.PlaceId
 if PlaceId ~= 2753915549 and PlaceId ~= 4442272183 and PlaceId ~= 7449423635 then
-    return warn("[❌] Not supported PlaceId!")
+    return
 end
 
 -- ===== ✅ Services =====
