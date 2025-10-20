@@ -62,9 +62,8 @@ riskWarning = riskWarning .. "<font color=\"rgb(" .. Modules.Colors["NeonGreen"]
 -- [6] แทรกข้อความเวอร์ชันและสถานะเข้าไปใน riskWarning (หลังจากเว้น 3 บรรทัด)
 riskWarning = riskWarning .. "\n\n\n\n"
 riskWarning = riskWarning .. "<font color=\"rgb(" .. Modules.Colors["White"] .. ")\">© 2025 Kawnew Software Development All Rights Reserved</font>\n"
-riskWarning = riskWarning .. "<font color=\"rgb(" .. Modules.Colors["Info"] .. ")\">Version Beta</font>\n"
-riskWarning = riskWarning .. "<font color=\"rgb(" .. Modules.Colors["NeonGreen"] .. ")\">KRNL Console Initiated Successfully.</font>"
-riskWarning = riskWarning .. "\nSystem Integrity: <font color=\"rgb(" .. Modules.Colors["Success"] .. ")\">Stable</font> ✅"
+riskWarning = riskWarning .. "<font color=\"rgb(" .. Modules.Colors["White"] .. ")\">Version Beta</font>\n"
+riskWarning = riskWarning .. "\nKawnew luau: <font color=\"rgb(" .. Modules.Colors["Success"] .. ")\">Stable</font> ✅"
 
 game:GetService("StarterGui"):SetCore("DevConsoleVisible", true)
 
