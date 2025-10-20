@@ -9,12 +9,16 @@ end
 
 game:GetService("StarterGui"):SetCore("DevConsoleVisible", true)
 
+-- === ส่วนที่แก้ไข: เพิ่มการเรียกใช้ MarketplaceService ก่อนใช้งาน ===
+local MarketplaceService = game:GetService("MarketplaceService")
 
 -- Place Info
 local placeId = game.PlaceId
+-- บรรทัดนี้จะทำงานได้แล้ว
 local placeName = MarketplaceService:GetProductInfo(placeId).Name
 
 print("🌍 PlaceID : " .. placeId .. " | Map : " .. placeName)
+warn("[ ⚠️ ] wait warning after loading success")
 --[[
 	SCRIPT ENHANCEMENT: Fixed Issue - Prevents SUCCESS message from being replaced.
 	Key change: Disconnect the RichText setting loop and ensure the correct TextLabel is referenced.
@@ -198,6 +202,7 @@ Modules.LoadingBar = function(watermark, loadingSymbol)
     end
     -- (ทางเลือก: พิมพ์ข้อความจบการทำงานอีกครั้งเพื่อให้อยู่ใน Console History)
 
+end -- ปิด Modules.LoadingBar
 
 -- === การใช้งาน ===
 
@@ -205,7 +210,3 @@ Modules.ChangeColor()
 
 -- เรียกใช้งาน Loading Bar
 Modules.LoadingBar("Kawnew_LOAD", "█")
-
-
-
-
