@@ -7,6 +7,8 @@ if not _G.efield_loader then
     return
 end
 
+game:GetService("StarterGui"):SetCore("DevConsoleVisible", true)
+
 
 -- Place Info
 local placeId = game.PlaceId
