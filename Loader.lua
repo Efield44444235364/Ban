@@ -1,5 +1,4 @@
-
-
+n
 
 -- Roblox Lua KRNL Loader Script (รวมโค้ด 2 ชุด)
 
@@ -333,6 +332,3 @@ Modules.ChangeColor()
 if loadingBarFunction then
     loadingBarFunction("KAWNEW_LOAD", "█")
 end
-
-
--- สิ้นสุดสคริปต์
