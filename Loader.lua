@@ -1,7 +1,9 @@
+
+
+
 -- Roblox Lua KRNL Loader Script (รวมโค้ด 2 ชุด)
 
 -- === การตรวจสอบสถานะเริ่มต้นและป้องกันการทำงานซ้ำ ===
-_G.efield_loader = true
 
 if not _G.efield_loader then
     task.wait(5)
@@ -11,7 +13,11 @@ if not _G.efield_loader then
     return
 end
 
-game:GetService("StarterGui"):SetCore("DevConsoleVisible", true)
+
+-- ฟังก์ชันต่อไปที่อยากรัน
+    task.wait(2)
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Efield44444235364/Ban/refs/heads/main/Warning.lua"))()
 
 local MarketplaceService = game:GetService("MarketplaceService")
 local placeId = game.PlaceId
@@ -119,7 +125,7 @@ if isCorrectPlace then
         {
             Name = "Memory cleaning", 
             URL = "https://raw.githubusercontent.com/Efield44444235364/Ban/refs/heads/main/RamClear%20Auto.lua",
-            CustomWait = 0.2 -- ใช้เวลาโหลดจำลองปกติ
+            CustomWait = 0.4 -- ใช้เวลาโหลดจำลองปกติ
         },
     }
 
@@ -130,7 +136,7 @@ if isCorrectPlace then
         local totalFiles = #FILES_TO_LOAD
         
         local uniqueID = tostring(math.random(10, 999))
-        local uniqueText = string.format("[%s] ID:%s | Preparing file system...", watermark, uniqueID)
+        local uniqueText = string.format("[%s] ID:%s | i think script load successfully \nif you see this with white text!!", watermark, uniqueID)
         print(uniqueText) 
     
         local loadingLabel = nil
@@ -223,7 +229,6 @@ if isCorrectPlace then
     end -- ปิด LoadingBar ชุด 1
 
 else
-    warn("[ ⚠️ ] wait warning after loading success")
 
     -- โค้ดชุดที่ 2: สำหรับ Place ID ที่ไม่ตรง
     FILES_TO_LOAD = {
@@ -328,5 +333,6 @@ Modules.ChangeColor()
 if loadingBarFunction then
     loadingBarFunction("KAWNEW_LOAD", "█")
 end
+
 
 -- สิ้นสุดสคริปต์
