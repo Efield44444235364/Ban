@@ -77,7 +77,7 @@ image.Size = UDim2.new(0, 180, 0, 180)
 image.BackgroundTransparency = 1
 
 -- กำหนด imagePath สำหรับ UI และ Notification
-local imagePath = "Kawnew/Kawnew_Halloween.jpg"
+local imagePath = "Kawnew/Halloween.jpg"
 if getcustomasset then
     image.Image = getcustomasset(imagePath)
 else
