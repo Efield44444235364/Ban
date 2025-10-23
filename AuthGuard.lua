@@ -15,14 +15,14 @@ game:GetService("RunService"):Set3dRenderingEnabled(true)
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
 local MarketplaceService = game:GetService("MarketplaceService")
+local StarterGui = game:GetService("StarterGui") -- เพิ่ม StarterGui
 
 -- Redesigned Colors (Darker, High Contrast)
--- ใช้สีที่ดูโมเดิร์นขึ้น แต่ยังคงธีมส้ม/ดำ
-local OUTER_COLOR = Color3.fromRGB(15, 15, 15)      -- ดำสนิทเกือบ 100% สำหรับพื้นหลัง/เงา
-local INNER_COLOR = Color3.fromRGB(180, 75, 5)      -- ส้มไหม้/อิฐเข้ม (ดูหรูขึ้น)
-local TEXT_MAIN = Color3.fromRGB(255, 240, 220)     -- Off-White/ครีม
-local TEXTACCENTTOP = Color3.fromRGB(255, 170, 0)   -- ส้มทอง
-local TEXTACCENTBOTTOM = Color3.fromRGB(255, 90, 0) -- ส้มไฟ
+local OUTER_COLOR = Color3.fromRGB(15, 15, 15)
+local INNER_COLOR = Color3.fromRGB(180, 75, 5)
+local TEXT_MAIN = Color3.fromRGB(255, 240, 220)
+local TEXTACCENTTOP = Color3.fromRGB(255, 170, 0)
+local TEXTACCENTBOTTOM = Color3.fromRGB(255, 90, 0)
 
 -- Get universal map name
 local mapName = "Unknown map"
@@ -42,7 +42,7 @@ ScreenGui.IgnoreGuiInset = true
 ScreenGui.Name = "KawnewModernHalloweenUI"
 ScreenGui.Parent = game.CoreGui
 
--- Outer frame (Main Container - now acting more like a clean border/shadow)
+-- Outer frame (Main Container)
 local outerFrame = Instance.new("Frame")
 outerFrame.Name = "Outer"
 outerFrame.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -52,7 +52,6 @@ outerFrame.BackgroundColor3 = OUTER_COLOR
 outerFrame.BorderSizePixel = 0
 outerFrame.Parent = ScreenGui
 
--- Modern Corners (Radius เพิ่มขึ้นเล็กน้อย)
 local outerCorner = Instance.new("UICorner", outerFrame)
 outerCorner.CornerRadius = UDim.new(0, 20)
 
@@ -74,17 +73,16 @@ local image = Instance.new("ImageLabel")
 image.Name = "Art"
 image.AnchorPoint = Vector2.new(0, 0.5)
 image.Position = UDim2.new(0, 20, 0.5, 0)
-image.Size = UDim2.new(0, 180, 0, 180) -- ขยายรูปให้ใหญ่ขึ้น
+image.Size = UDim2.new(0, 180, 0, 180) 
 image.BackgroundTransparency = 1
 
--- **แก้ไข: กลับไปใช้การเรียกใช้รูปภาพตามต้นฉบับ**
+-- กำหนด imagePath สำหรับ UI และ Notification
 local imagePath = "Kawnew/Kawnew_Halloween.jpg"
 if getcustomasset then
     image.Image = getcustomasset(imagePath)
 else
     image.Image = "rbxassetid://PUTYOURIMAGE_ID"
 end
--- **สิ้นสุดการแก้ไข**
 
 image.Parent = bgFrame
 
@@ -116,7 +114,7 @@ vlist.FillDirection = Enum.FillDirection.Vertical
 vlist.HorizontalAlignment = Enum.HorizontalAlignment.Left
 vlist.VerticalAlignment = Enum.VerticalAlignment.Top
 vlist.SortOrder = Enum.SortOrder.LayoutOrder
-vlist.Padding = UDim.new(0, 10) 
+vlist.Padding = UDim.new(0, 5) 
 
 -- Title: Happy Halloween (bigger + gradient)
 local title = Instance.new("TextLabel")
@@ -137,14 +135,12 @@ titleGradient.Color = ColorSequence.new({
     ColorSequenceKeypoint.new(0.0, TEXTACCENTTOP),
     ColorSequenceKeypoint.new(1.0, TEXTACCENTBOTTOM),
 })
--- **แก้ไข: ลบ UIStroke ที่สร้างขอบดำออก**
--- local titleStroke = Instance.new("UIStroke", title) -- ถูกลบ
 
 -- Scroll area for long text
 local scrollText = Instance.new("ScrollingFrame")
 scrollText.Name = "BodyScroll"
 scrollText.LayoutOrder = 2
-scrollText.Size = UDim2.new(1, 0, 1, -50) 
+scrollText.Size = UDim2.new(1, 0, 1, -45) 
 scrollText.BackgroundTransparency = 1
 scrollText.CanvasSize = UDim2.new(0, 0, 0, 0)
 scrollText.ScrollBarThickness = 5
@@ -188,18 +184,18 @@ image.ImageTransparency = 1
 TweenService:Create(image, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { ImageTransparency = 0 }):Play()
 
 -- Slide-down & slight Scale-in animation for the whole UI
-outerFrame.Size = UDim2.new(0, 400, 0, 220) -- Start slightly smaller (ก่อนจะขยายเข้า)
+outerFrame.Size = UDim2.new(0, 400, 0, 220) 
 
 TweenService:Create(
     outerFrame,
-    TweenInfo.new(0.8, Enum.EasingStyle.Elastic, Enum.EasingDirection.Out), -- ใช้ Elastic เพื่อให้ดูมีชีวิตชีวา
+    TweenInfo.new(0.8, Enum.EasingStyle.Elastic, Enum.EasingDirection.Out), 
     { 
         Position = UDim2.new(0.5, 0, 0.5, 0),
-        Size = UDim2.new(0, 420, 0, 240) -- ขยายกลับไปที่ขนาดจริง
+        Size = UDim2.new(0, 420, 0, 240) 
     }
 ):Play()
 
--- Dragging logic (touch + mouse)
+-- Dragging logic (touch + mouse) 
 do
     local dragging = false
     local dragStart, startPos
@@ -227,3 +223,31 @@ do
         end
     end)
 end
+
+-- ** 4. Send Notification on UI Load **
+local function sendInitialNotification()
+    -- ใช้ getcustomasset หากมี, มิฉะนั้นใช้พาธ/ID ตามที่กำหนด
+    local iconAsset = ""
+    if getcustomasset then
+        iconAsset = getcustomasset(imagePath) 
+    else
+        iconAsset = "rbxassetid://PUTYOURIMAGE_ID"
+    end
+
+    -- ใช้ pcall เพื่อป้องกันข้อผิดพลาดหาก SetCore ยังไม่พร้อม
+    local success, message = pcall(StarterGui.SetCore, StarterGui, "SendNotification", {
+        -- ใช้ไอคอนอีโมจิฟักทองเดียวกันกับ Title
+        Title = "Kawnew 🎃", 
+        Text = "optimize success!",
+        Icon = iconAsset, -- ใช้ Icon Asset/Path เดียวกัน
+        Duration = 3
+    })
+
+    if not success then
+        warn("Failed to send notification: " .. tostring(message))
+    end
+end
+
+-- หน่วงเวลาเล็กน้อยเพื่อให้ UI หลักโหลดเสร็จก่อน Notification จะปรากฏ
+wait(0.5) 
+sendInitialNotification()
