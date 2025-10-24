@@ -10,6 +10,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Efield44444235364/Ban
 
 game:GetService("RunService"):Set3dRenderingEnabled(true)
 
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Efield44444235364/Ban/refs/heads/main/RamClear%20Auto.lua"))()
 
 -- Services
 local UserInputService = game:GetService("UserInputService")
