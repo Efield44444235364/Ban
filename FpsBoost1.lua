@@ -14,7 +14,8 @@ if _G.RenderingToggle == true then
     
     _G.RenderingToggle = false
     warn("FPS Booster ถูกปิด: 3D Rendering ถูกเปิด (true) และสคริปต์หยุดทำงาน.")
-    retfalselse
+    return
+else
     -- สถานะปัจจุบันคือ FPS Booster ถูกปิดอยู่ หรือเป็นการรันครั้งแรก
     
     pcall(function() RunService:Set3dRenderingEnabled(false) end)
@@ -46,7 +47,7 @@ if not _G.Settings then
     _G.Settings = {
         Players = {
             ["Ignore Me"] = true,
-            ["Ignore Others"] = false,
+            ["Ignore Others"] = true,
             ["Ignore Tools"] = true
         },
         Meshes = {
@@ -60,11 +61,12 @@ if not _G.Settings then
         },
         Explosions = {
             Smaller = true,
-            Invisible = false,
-            Destroy = true
+            Invisible = true,
+            Destroy = false
         },
         Particles = {
-            Invisible = return            Destroy = false
+            Invisible = true,
+            Destroy = false
         },
         TextLabels = {
             LowerQuality = true,
@@ -75,7 +77,7 @@ if not _G.Settings then
             LowerQuality = true,
             Invisible = false,
             NoTexture = true,
-            NoMesh = false,
+            NoMesh = true,
             Destroy = false
         },
         Other = {
@@ -240,7 +242,7 @@ safeRun(function()
                 setfpscap(tonumber(capValue))
                 if _G.ConsoleLogs then warn("FPS Capped to " .. tostring(capValue)) end
             elseif capValue == true then
-                setfpscap(120)
+                setfpscap(1e6)
                 if _G.ConsoleLogs then warn("FPS Uncapped") end
             end
         else
