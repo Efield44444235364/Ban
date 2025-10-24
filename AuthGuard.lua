@@ -2,12 +2,15 @@ print("loading")
 
 -- Photo Load
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Efield44444235364/KawnewLogo/refs/heads/main/Loader.lua"))()
+task.wait(2)
+
 --FPS BOOST
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Efield44444235364/Ban/refs/heads/main/FpsBoost1.lua"))()
+task.wait(2)
+
 --FPS BOOST2
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Efield44444235364/Ban/refs/heads/main/FPSBoost2.lua"))()
-
-
+task.wait(1.2)
 game:GetService("RunService"):Set3dRenderingEnabled(true)
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Efield44444235364/Ban/refs/heads/main/RamClear%20Auto.lua"))()
