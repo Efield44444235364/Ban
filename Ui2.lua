@@ -3,7 +3,7 @@ local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
 local player = game.Players.LocalPlayer
 
-local version = "Rewrite"
+local version = "Rewrite Wave1"
 local fileName = "Patch.json"
 
 local lastSeen = nil
