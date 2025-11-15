@@ -1,4 +1,4 @@
-n
+
 
 -- Roblox Lua KRNL Loader Script (รวมโค้ด 2 ชุด)
 
