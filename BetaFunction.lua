@@ -1,163 +1,87 @@
+-- 📦 Services
 local StarterGui = game:GetService("StarterGui")
 local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local workspace = game:GetService("Workspace")
+local LocalPlayer = Players.LocalPlayer
 
-local player = Players.LocalPlayer
-
--- ===== World Check =====
+-- 🌍 World Check
 local World1, World2, World3, Celebrity = false, false, false, false
 
-if game.PlaceId == 2753915549 then
+if game.PlaceId == 2753915549 or game.PlaceId == 85211729168715 then
     World1 = true
-elseif game.PlaceId == 4442272183 then
+elseif game.PlaceId == 4442272183 or game.PlaceId == 79091703265657 then
     World2 = true
-elseif game.PlaceId == 7449423635 then
+elseif game.PlaceId == 7449423635 or 100117331123089 then
     World3 = true
 elseif game.PlaceId == 95165932064349 then 
-    Celebrity = true
+    Celebrity = false
 else
     warn("[❌] This script only works in Blox Fruits PlaceIds!")
     return
 end
 
--- ===== Toggle Emotes =====
+-- 🎭 Enable Emotes
 pcall(function()
     StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, true)
     StarterGui:SetCore("EmotesMenuOpen", true)
 end)
 
--- 🧩 Notification function
-local Notification = require(ReplicatedStorage:WaitForChild("Notification"))
-local function Notify(text, color)
-    Notification.new("<Color="..color..">"..text.."<Color=/>"):Display()
-end
+-- ⚙️ ค่า Default Attribute
+local desired_DashLength = 150 -- เริ่มต้นกลาง ๆ (คุณปรับได้ 0–100)
+local desired_WaterWalking = true
 
--- ⚙️ CONFIG Dodge
-local DODGE_DISTANCE = 70
-local DODGE_TIME = 0.25
+-- 🛠 ฟังก์ชันสำหรับตั้งค่า Attribute
+local function ApplyAttributes(char)
+    if not char then return end
+    
+    -- Clamp DashLength ให้อยู่ในช่วง 0–100
+    local dashValue = math.clamp(desired_DashLength, 0, 300)
 
--- 🌀 ระบบพุ่ง
-local function LoadFullDash()
-    local char = player.Character or player.CharacterAdded:Wait()
-    local hrp = char:WaitForChild("HumanoidRootPart")
-    local hum = char:WaitForChild("Humanoid")
+    -- ตั้งค่า Attribute
+    char:SetAttribute("DashLength", dashValue)
+    char:SetAttribute("WaterWalking", desired_WaterWalking)
 
-    local dodgeGroup = player:WaitForChild("PlayerGui")
-        :WaitForChild("MobileContextButtons")
-        :WaitForChild("ContextButtonFrame")
-        :WaitForChild("BoundActionDodge")
+    -- อัพเดทตัวแปรในสคริปต์
+    Dashlength = char:GetAttribute("DashLength")
+    WaterWalking = char:GetAttribute("WaterWalking")
 
-    local realButton
-    for _, child in ipairs(dodgeGroup:GetDescendants()) do
-        if child:IsA("ImageButton") or child:IsA("TextButton") then
-            realButton = child
-            break
-        end
-    end
+    -- อัพเดท UI ถ้ามี
+    if dashSlider then dashSlider:Set(Dashlength) end
+    if waterToggle then waterToggle:Set(WaterWalking) end
 
-    if not realButton then
-        Notify("Script Error", "Red")
+    -- ตรวจสอบ HRP
+    local hrp = char:WaitForChild("HumanoidRootPart", 5)
+    if not hrp then
+        warn("Failed to get HRP")
         return
     end
-
-    local dodging = false
-
-    local function DodgeDirection()
-        if dodging then return end
-        dodging = true
-
-        char = player.Character or player.CharacterAdded:Wait()
-        hrp = char:WaitForChild("HumanoidRootPart")
-        hum = char:WaitForChild("Humanoid")
-
-        local moveDir = hum.MoveDirection
-        if moveDir.Magnitude == 0 then
-            moveDir = hrp.CFrame.LookVector
-        end
-
-        local startTime = tick()
-        local endTime = startTime + DODGE_TIME
-        local velocity = moveDir.Unit * (DODGE_DISTANCE / DODGE_TIME)
-
-        local connection
-        connection = RunService.RenderStepped:Connect(function()
-            if tick() >= endTime then
-                connection:Disconnect()
-                dodging = false
-                return
-            end
-            hrp.AssemblyLinearVelocity = velocity
-        end)
-    end
-
-    realButton.Activated:Connect(DodgeDirection)
-    Notify("Beta Function load", "Green") -- Notification ตัวเดียวตอนเริ่ม
 end
 
--- 🚀 โหลดครั้งแรก
-task.spawn(function()
-    LoadFullDash()
-    -- ตั้งขนาดน้ำตอนเริ่ม
-    pcall(function()
-        local water = workspace:WaitForChild("Map"):WaitForChild("WaterBase-Plane")
-        water.Size = Vector3.new(1000, 112, 1000)
-    end)
+-- 🚀 เรียกใช้ทันทีตอนเริ่ม
+if LocalPlayer.Character then
+    ApplyAttributes(LocalPlayer.Character)
+end
+
+-- 🔄 เรียกใช้ใหม่ทุกครั้งที่ตัวละคร respawn
+LocalPlayer.CharacterAdded:Connect(function(newChar)
+    task.wait(1)
+    ApplyAttributes(newChar)
 end)
 
--- 📡 ตรวจสถานะ Part
-local lastExists = true
-local charFolder = workspace:FindFirstChild("Characters")
-
-local function CheckCharacterState()
-    charFolder = workspace:FindFirstChild("Characters")
-    if not charFolder then return end
-    local myPart = charFolder:FindFirstChild(player.Name)
-
-    if not myPart and lastExists then
-        lastExists = false
-        warn("Its gonee!!!")
-        Notify("Script loading", "White")
-    elseif myPart and not lastExists then
-        lastExists = true
-        task.wait(1.8)
-        task.spawn(function()
-            LoadFullDash()
-            pcall(function()
-                local water = workspace:WaitForChild("Map"):WaitForChild("WaterBase-Plane")
-                water.Size = Vector3.new(1000, 112, 1000)
-            end)
-        end)
+-- 📌 ฟังก์ชันเรียกใช้เองภายนอก
+function SetDashLength(value)
+    desired_DashLength = math.clamp(value, 0, 300)
+    if LocalPlayer.Character then
+        LocalPlayer.Character:SetAttribute("DashLength", desired_DashLength)
+        Dashlength = desired_DashLength
+        if dashSlider then dashSlider:Set(desired_DashLength) end
     end
 end
 
--- 🎧 Event Based ตรวจ Children เปลี่ยน
-if charFolder then
-    charFolder.ChildAdded:Connect(function(child)
-        if child.Name == player.Name then
-            CheckCharacterState()
-        end
-    end)
-    charFolder.ChildRemoved:Connect(function(child)
-        if child.Name == player.Name then
-            CheckCharacterState()
-        end
-    end)
+function SetWaterWalking(value)
+    desired_WaterWalking = value
+    if LocalPlayer.Character then
+        LocalPlayer.Character:SetAttribute("WaterWalking", value)
+        WaterWalking = value
+        if waterToggle then waterToggle:Set(value) end
+    end
 end
-
--- ⏱ Backup ตรวจซ้ำทุก 0.2 วิ
-task.spawn(function()
-    while task.wait(0.2) do
-        CheckCharacterState()
-    end
-end)
-
--- ตรวจสอบทีมก่อนเริ่ม Long Dash
-task.spawn(function()
-    while not player.Team do
-        task.wait(0.05)
-    end
-    task.wait(1.8)
-    LoadFullDash()
-end)
