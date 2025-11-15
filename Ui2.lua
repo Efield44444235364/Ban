@@ -1,14 +1,11 @@
---// Executor Script : Version Check + Minimal Green Scrollable UI
 local HttpService = game:GetService("HttpService")
 local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
 local player = game.Players.LocalPlayer
 
--- Current version
-local version = "Taylor Swift " -- เวอร์ชันใหม่
+local version = "Rewrite"
 local fileName = "Patch.json"
 
--- Read old version
 local lastSeen = nil
 if isfile(fileName) then
     local data = readfile(fileName)
@@ -20,129 +17,122 @@ if isfile(fileName) then
     end
 end
 
--- Function to create the UI
 local function createUI()
-    local ScreenGui = Instance.new("ScreenGui")
-    ScreenGui.Name = "AnnouncementUI"
-    ScreenGui.Parent = player:WaitForChild("PlayerGui")
-    ScreenGui.IgnoreGuiInset = true
-    ScreenGui.ResetOnSpawn = false
+    local gui = Instance.new("ScreenGui")
+    gui.Name = "AmbientUpdateLog"
+    gui.Parent = player:WaitForChild("PlayerGui")
+    gui.IgnoreGuiInset = true
+    gui.ResetOnSpawn = false
 
-    -- Main Card
-    local Card = Instance.new("Frame")
-    Card.Size = UDim2.fromOffset(360, 260)
-    Card.Position = UDim2.new(0.5, 0, -0.5, 0)
-    Card.AnchorPoint = Vector2.new(0.5, 0.5)
-    Card.BackgroundColor3 = Color3.fromRGB(220, 245, 220) -- เขียวอ่อนมินิมอล
-    Card.BorderSizePixel = 0
-    Card.Parent = ScreenGui
-    Instance.new("UICorner", Card).CornerRadius = UDim.new(0, 16)
+    local blur = Instance.new("BlurEffect")
+    blur.Size = 12
+    blur.Parent = game:GetService("Lighting")
 
-    -- Title
-    local Title = Instance.new("TextLabel")
-    Title.Size = UDim2.new(1, -40, 0, 32)
-    Title.Position = UDim2.new(0, 20, 0, 16)
-    Title.BackgroundTransparency = 1
-    Title.Text = "Patch Announcement"
-    Title.Font = Enum.Font.GothamSemibold
-    Title.TextSize = 18
-    Title.TextColor3 = Color3.fromRGB(35, 90, 40) -- เขียวเข้ม
-    Title.TextXAlignment = Enum.TextXAlignment.Left
-    Title.Parent = Card
+    local frame = Instance.new("Frame")
+    frame.Size = UDim2.fromOffset(420, 300)
+    frame.Position = UDim2.new(0.5, 0, -0.5, 0)
+    frame.AnchorPoint = Vector2.new(0.5, 0.5)
+    frame.BackgroundTransparency = 0.4
+    frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    frame.BorderSizePixel = 0
+    frame.Parent = gui
+    Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 20)
 
-    -- Close Button
-    local CloseButton = Instance.new("TextButton")
-    CloseButton.Size = UDim2.new(0, 28, 0, 28)
-    CloseButton.Position = UDim2.new(1, -36, 0, 12)
-    CloseButton.BackgroundColor3 = Color3.fromRGB(180, 230, 180)
-    CloseButton.Text = "❌"
-    CloseButton.Font = Enum.Font.Gotham
-    CloseButton.TextSize = 16
-    CloseButton.TextColor3 = Color3.fromRGB(35, 90, 40)
-    CloseButton.Parent = Card
-    Instance.new("UICorner", CloseButton).CornerRadius = UDim.new(1,0)
+    local gradient = Instance.new("UIGradient", frame)
+    gradient.Rotation = 0
+    gradient.Color = ColorSequence.new{
+        ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 120, 255)),
+        ColorSequenceKeypoint.new(0.5, Color3.fromRGB(180, 0, 255)),
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 80, 0))
+    }
 
-    -- Divider
-    local Divider = Instance.new("Frame")
-    Divider.Size = UDim2.new(1, -40, 0, 1)
-    Divider.Position = UDim2.new(0, 20, 0, 60)
-    Divider.BackgroundColor3 = Color3.fromRGB(180, 220, 180)
-    Divider.BorderSizePixel = 0
-    Divider.Parent = Card
+    -- Animate gradient rotation
+    task.spawn(function()
+        while gui.Parent do
+            gradient.Rotation = (gradient.Rotation + 1) % 360
+            task.wait(0.03)
+        end
+    end)
 
-    -- Version Label
-    local VersionLabel = Instance.new("TextLabel")
-    VersionLabel.Size = UDim2.new(1, -40, 0, 28)
-    VersionLabel.Position = UDim2.new(0, 20, 0, 66)
-    VersionLabel.BackgroundTransparency = 1
-    VersionLabel.Font = Enum.Font.GothamSemibold
-    VersionLabel.TextSize = 16
-    VersionLabel.TextColor3 = Color3.fromRGB(35, 90, 40)
-    VersionLabel.Text = "Version: "..version
-    VersionLabel.TextXAlignment = Enum.TextXAlignment.Left
-    VersionLabel.Parent = Card
+    local title = Instance.new("TextLabel")
+    title.Size = UDim2.new(1, -40, 0, 36)
+    title.Position = UDim2.new(0, 20, 0, 20)
+    title.BackgroundTransparency = 1
+    title.Text = "Update Log"
+    title.Font = Enum.Font.GothamBlack
+    title.TextSize = 20
+    title.TextColor3 = Color3.fromRGB(255, 255, 255)
+    title.TextXAlignment = Enum.TextXAlignment.Left
+    title.Parent = frame
 
-    -- Scrollable Content
-    local ScrollFrame = Instance.new("ScrollingFrame")
-    ScrollFrame.Size = UDim2.new(1, -40, 1, -110)
-    ScrollFrame.Position = UDim2.new(0, 20, 0, 100)
-    ScrollFrame.BackgroundTransparency = 1
-    ScrollFrame.BorderSizePixel = 0
-    ScrollFrame.CanvasSize = UDim2.new(0, 0, 2, 0) -- กำหนดสูงเริ่มต้น (สามารถปรับได้ตาม Content)
-    ScrollFrame.ScrollBarThickness = 6
-    ScrollFrame.Parent = Card
+    local close = Instance.new("TextButton")
+    close.Size = UDim2.new(0, 28, 0, 28)
+    close.Position = UDim2.new(1, -36, 0, 16)
+    close.BackgroundTransparency = 0.3
+    close.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    close.Text = "✖"
+    close.Font = Enum.Font.Gotham
+    close.TextSize = 16
+    close.TextColor3 = Color3.fromRGB(0, 0, 0)
+    close.Parent = frame
+    Instance.new("UICorner", close).CornerRadius = UDim.new(1, 0)
 
-    local ContentLabel = Instance.new("TextLabel")
-    ContentLabel.Size = UDim2.new(1, 0, 2, 0) -- ยาวกว่า ScrollFrame ให้ Scroll
-    ContentLabel.BackgroundTransparency = 1
-    ContentLabel.TextWrapped = true
-    ContentLabel.Font = Enum.Font.Gotham
-    ContentLabel.TextSize = 14
-    ContentLabel.TextColor3 = Color3.fromRGB(50, 110, 50)
-    ContentLabel.TextXAlignment = Enum.TextXAlignment.Left
-    ContentLabel.TextYAlignment = Enum.TextYAlignment.Top
-    ContentLabel.Text = [[
-7/10/2025 Update
+    local scroll = Instance.new("ScrollingFrame")
+    scroll.Size = UDim2.new(1, -40, 1, -80)
+    scroll.Position = UDim2.new(0, 20, 0, 60)
+    scroll.BackgroundTransparency = 1
+    scroll.CanvasSize = UDim2.new(0, 0, 2, 0)
+    scroll.ScrollBarThickness = 6
+    scroll.Parent = frame
 
-Performance Improvements:
+    local content = Instance.new("TextLabel")
+    content.Size = UDim2.new(1, 0, 2, 0)
+    content.BackgroundTransparency = 1
+    content.TextWrapped = true
+    content.Font = Enum.Font.Gotham
+    content.TextSize = 14
+    content.TextColor3 = Color3.fromRGB(255, 255, 255)
+    content.TextXAlignment = Enum.TextXAlignment.Left
+    content.TextYAlignment = Enum.TextYAlignment.Top
+    content.Text = [[
+🔧 7/10/2025 Patch Notes
 
-Blox Fruits and all maps optimized for smoother FPS Optimizer improvements applied this version runs fast as fuck
+Performance:
+• FPS Optimizer overhaul for Blox Fruits
+• Smoother gameplay on all maps
 
-User Interface:
+UI:
+• Ambient redesign with animated gradients
+• Minimal layout, better readability
 
-Refreshed UI design with minimal clean green theme for easier navigation.
-and reduced unnecessary Ui
-    
-Beta Features
+ Beta:
+• Long dash feature improve 
+• fix character freeze while dash
 
-Long dash feature added (currently in beta may contain minor bugs)
+ Anti-Cheat:
+• Full bypass for Blox Fruits & Fish
+• ⚠️ Risk of ban still exists!
 
-Anti-Cheat Bypass:
+ Misc:
+• Minor bug fixes
+• Better support for low-end devices
 
-Full bypass for Blox Fruits and Fish but its maybe got some ban or permanent ban!!! OK?
-
-Miscellaneous:
-
-Various minor bug fixes and stability improvements.
-General performance enhancements for low-end devices.
-
-End of update!
+ End of update!
     ]]
-    ContentLabel.Parent = ScrollFrame
+    content.Parent = scroll
 
-    -- TweenService: Slide In
-    TweenService:Create(Card, TweenInfo.new(0.7, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
-        Position = UDim2.new(0.5,0,0.5,0)
+    TweenService:Create(frame, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {
+        Position = UDim2.new(0.5, 0, 0.5, 0)
     }):Play()
 
-    -- Close → Slide Up + Save version
-    CloseButton.MouseButton1Click:Connect(function()
-        local tween = TweenService:Create(Card, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.In), {
+    close.MouseButton1Click:Connect(function()
+        local tween = TweenService:Create(frame, TweenInfo.new(0.5, Enum.EasingStyle.Quint), {
             Position = UDim2.new(0.5, 0, -0.5, 0)
         })
         tween:Play()
         tween.Completed:Connect(function()
-            ScreenGui:Destroy()
+            gui:Destroy()
+            blur:Destroy()
             local data = {
                 Version = version,
                 SeenAt = os.date("%Y-%m-%d %H:%M:%S")
@@ -151,26 +141,25 @@ End of update!
         end)
     end)
 
-    -- Draggable UI
+    -- Dragging
     local dragging, dragStart, startPos
-    Title.InputBegan:Connect(function(input)
+    title.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 then
             dragging = true
             dragStart = input.Position
-            startPos = Card.Position
+            startPos = frame.Position
         end
     end)
-    Title.InputEnded:Connect(function() dragging = false end)
+    title.InputEnded:Connect(function() dragging = false end)
     UserInputService.InputChanged:Connect(function(input)
         if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
             local delta = input.Position - dragStart
-            Card.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X,
-                                      startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+            frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X,
+                                       startPos.Y.Scale, startPos.Y.Offset + delta.Y)
         end
     end)
 end
 
--- Show UI only if version changed
 if lastSeen ~= version then
     createUI()
 end
