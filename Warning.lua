@@ -65,8 +65,6 @@ riskWarning = riskWarning .. "<font color=\"rgb(" .. Modules.Colors["White"] .. 
 riskWarning = riskWarning .. "<font color=\"rgb(" .. Modules.Colors["White"] .. ")\">Version Beta</font>\n"
 riskWarning = riskWarning .. "\nKawnew luau: <font color=\"rgb(" .. Modules.Colors["Success"] .. ")\">Stable</font> ✅"
 
-game:GetService("StarterGui"):SetCore("DevConsoleVisible", true)
-
 -- [7] แสดงทั้งหมดใน print เดียว
 Modules.print("Warning", riskWarning)
 
