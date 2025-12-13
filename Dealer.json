@@ -1,0 +1,4 @@
+[
+  { "dealer": "AdvancedDealer", "control": true },
+  { "dealer": "NormalDealer", "control": false }
+]
