@@ -1,4 +1,14 @@
 [
-  { "dealer": "AdvancedDealer", "control": true },
-  { "dealer": "NormalDealer", "control": false }
+  { 
+    "dealer": "AdvancedDealer", 
+    "control": true 
+  },
+  { 
+    "dealer": "NormalDealer", 
+    "control": false 
+  },
+  { 
+    "dealer": "FreeUser", 
+    "control": false 
+  }
 ]
